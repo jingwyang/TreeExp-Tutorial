@@ -1,0 +1,56 @@
+# Data Manipulation and Storage
+## Input Format
+To simplify the use of package, the updated *TreeExp* has gave up the former input format (which require both gene information file and reads count data) and takes in only normalized RNA-seq data as input file. In other words, users should make sure that the input data is processed and comparable between samples. The package is not likely to provied data filteration or normalization functions.
+
+The expression data is suppossed to be in certain format:
+
+1. expression file should be a `text` file in matrix shape, in which values are separated by tabs. `Rows` correspond to orthologous genes names, and `Columns` correspond to sample names. Sample names are in format of "`TaxaName_SubtaxaName_ReplicatesName`". Usually, `TaxaName` represents name of species; `Subtaxaname` correspond to cetain tissue, celltype or develomental stage; `ReplicatesName` shows the name of replicates for each `Taxa_Subtaxa`-pair. The three types of lables, `TaxaName`,`SubtaxaName`, `ReplicatesName` are connected by '`_`' character.
+
+2. raw reads count data should be first normalized, e.g., by RPKM. While RPKM is simple and straightforward, it tends to be unstable when the number of genes expressed across samples differs considerably. This problem can be alleviated by the TPM measure, which has been widely usued. Some statistically sophisticated normalization methods such as TMM, and median ratio normalization, has become the built-in standard in many bioinformatics tools for RNA-seq analysis[@robinson2010].
+
+## Example of Input Data
+The example file are included in the *TreeExp* package, which can be found in `/inst/extdata` folder in the package. 
+
+Here, we select expression values of 100 orthologous genes in eight brain regions (CB, HIP, STR, ACC, V1C, PMC, DPFC, VPFC)^[cerebellum (CB), hippocampus (HIP), striatum (STR) ,  anterior cingulate cortex (ACC),  primary visual cortex (V1C), premotor cortex (PMC),  dorsolateral prefrontal cortex (DPFC),
+ventrolateral prefrontal cortex (VPFC).] among human, chimpanzee, gorilla and gibbon[@xu2018].
+The numbers of biological replicates for each of the brain regions in species are 2~6, except only one replicate for all brain regions in gibbon.
+Note that expression data here are only used as demonstration of how functions in package store, manipulate and print the data input, and should not be used in further phylogenetic analysis since too few genes were included in the file.
+
+The Table below shows the format of the partly input data.
+
+```{r,echo=FALSE, results='asis',message=FALSE}
+library('TreeExp')
+data('example_data')
+knitr::kable(example_data)
+```
+
+## Construction
+
+The construction function `TEconstruct` loads in expression level file, and wraps it in a list of *taxonExp* objects (one *taxaExp* object).
+```{r, eval=FALSE}
+taxa.objects = TEconstruct(ExpValueFP = system.file('extdata/primate_brain_expvalues.txt',
+package = 'TreeExp'), taxa = "all", subtaxa = 'all')
+```
+
+The construction process takes **several minutes** on a desktop computer depending on data size and hardware performance. Specify **"taxa"** and **"subtaxa"** options in the function when using partial of your data. The construction process will be faster.
+```{r,message=FALSE,results='hide'}
+taxa.objects = TEconstruct(ExpValueFP = system.file('extdata/primate_brain_expvalues.txt',
+package = 'TreeExp'), taxa = "all", subtaxa = c("ACC","CB"))
+```
+You can take a look at what the loaded objects:
+```{r}
+print(taxa.objects, details = TRUE)
+```
+Also, you can choose to print a single *taxonExp* object
+```{r}
+print(taxa.objects[[1]], printlen = 6)
+```
+and choose to print single element (*exp_val*(expression values) element as example) for the *taxonExp* object
+```{r,eval=FALSE}
+taxa.objects[[6]]$exp_value[1:5,]
+```
+```{r, results='asis', echo=FALSE}
+knitr::kable(taxa.objects[[6]]$exp_value[1:5,])
+```
+
+Once the contruction courcs successfully completed, the following transcriptome phylogenetic analysis are ready to go.

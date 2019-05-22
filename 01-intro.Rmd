@@ -1,0 +1,88 @@
+---
+output:
+  pdf_document: default
+  html_document: default
+  word_document: default
+---
+# Introduction
+## Scope
+This guide provides an brief overview of the package *TreeExp* which is developed to provides useful phylogenetic tools applicable to RNA-seq data.
+
+Statistical methods implemented in the package was based on Ornstein-Uhlenbeck (OU) model of transcriptome evolution which claims that expression changes are constrained by stabilizing selection.
+
+The package can be applied to comparative expression evolution analysis based on RNA-seq data, which includes but not liminited to:
+
+* pairwise expression distance estimation
+* relative rate test for transcriptome evolution
+* the strength of expression conservation estimation
+* ancestral transcriptome inference
+
+This guide begins with brief description of the input data manipulation and storage and then gives key capabilities of package. Each main feature of the package consists of two parts: biological model and fully worked case studies for real data.
+
+\newpage
+
+## Installation
+A convenient way to install package from github is through *devtools* package:
+
+```{r, eval=FALSE}
+install.packages('devtools')
+devtools::install_github("jingwyang/TreeExp")
+```
+
+After installation, *TreeExp* can be loaded in the usual way:
+
+```{r, eval=FALSE}
+library('TreeExp')
+```
+
+\newpage
+
+## Citation
+The *TreeExp* package implements statistical methods from the following publications. If you use *TreeExp* in publised research, please cite the appropriate articles
+
+    Ruan,H. et al. (2016) TreeExp1.0: R package for analyzing expression evolution based on rna-seq data. Journal of Experimental Zoology Part B: Molecular and Developmental Evolution, 326, 394–402.
+This paper [@doi:10.1002/jez.b.22707] released the 1.0 version of *TreeExp* that can perform comparative expression evolution analysis based on RNA-seq data, which include optimized input formatting, normalizeation, pairwise expression distance estimation, expression character tree inference, and prliminary expression phylogenetic network analysis.
+
+    Yang,J. et al. (2018) Ancestral transcriptome inference based on rna-seq and chip-seq data. Methods.
+This paper[@YANG2018] reported an updated verson of ancestral state inference originally developed by [@gu2004]. With special reference to the transcriptome evolution, the algorithm implemented is feasible, which can deal with RNA-seq and ChIP-seq data.
+
+    Paper3
+few
+
+\newpage
+
+## How to Get Help?
+Each function in *TreeExp* has online help page. If users have a question about a particular function, reading the function’s help page will be very useful. For example, a detailed description of the arguments and output of the *RelaRate.test* function can be read by typing
+
+```{r, eval=FALSE}
+?RelaRate.test()
+```
+or 
+```{r, eval=FALSE}
+help(RelaRate.test)
+```
+at R console. Users can also read the tutorial file embeded in the package to have more detailed information about the pacakge.
+
+It seems that vigenette file was not build by default when installing the pacakge from github through *devtools* package.Before we can check the vigenettes, we should build it first.
+
+One way is to build it when we install the package:
+
+```{r, eval=FALSE}
+devtools::install_github('jingwyang/TreeExp',build_opts = c("--no-resave-data", "--no-manual"))
+```
+
+Then we can list available vigenettes in an HTML browser through `browseVignettes` function:
+
+```{r, eval=FALSE}
+browseVignettes('TreeExp')
+```
+
+
+Besides, authors are appreciated to recieve reports of bugs in the functions or well-considered suggestions for improvements for the package. 
+
+\newpage
+
+## RNA-seq Data Enbeded
+RNA-seq datasets used in cased studies (brain, cerebellum, heart, liver, kidney and testis) were collected from the work of [@brawand2011], each of which include eigth species: Human (*Homo sapiens*), Chimpanzee (*Pan troglodytes*), Orangutan (*Pongo abelii*), Macaque (*Macaca mulatta*), Mouse (*Mus musculus*), Platypus (*Ornithorhynchus anatinus*), Opossum (*Monodelphis domestica*) and Chicken (*Gallus gallus*).
+
+Single expression value for each gene per species was obtained by taking the median of TPM (Transcripts per Million) among biological replicates.

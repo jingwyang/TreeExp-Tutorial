@@ -1,0 +1,73 @@
+---
+output:
+  word_document: default
+  html_document: default
+---
+# Relative Rate Test for Transcriptome Evolution
+## Theory
+Given a set ($N$) of orthologous genes of two species denoted by $A$ and $B$, respectively, the goal of relative rate test is to investigate whether the rate of transcriptome evolution, on average, differs significantly between two lineages of species $A$ and $B$. To this end, we need the third species (species $C$) as outgroup (**Figure 1B**). 
+
+Let $D_{AB}$, $D_{AC}$ and $D_{BC}$ be the pairwise expression distances, respectively, which can be estimated by the methods we formulated above. Let $a$, $b$, $c$ be the expression branch lengths of corresponding three lineages $A$, $B$ and $C$, respectively. Assuming that these expression distances are additive, we have 
+
+$$
+\begin{split}
+D_{AB}&=a+b \\
+D_{AC}&=a+c \\
+D_{BC}&=b+c
+\end{split}\tag{2.1}
+$$
+
+respectively. Since lineages $A$ and $B$ have the same evolutionary time ($t$), one may write $a=\beta_At$ and $b=\beta_Bt$, where $\beta_A$ and $\beta_B$ are the rates of transcriptome evolution in lineages $A$ and $B$, respectively. 
+
+The relative rate test considers the following statistic
+$$G_{AB}=D_{AC}-D_{BC}=a-b=\left(\beta_A-\beta_B\right)t\tag{2.2}$$
+
+Hence, the null hypothesis $G_{AB}=0$ or $D_{AC}=D_{BC}$ means an equal rate ($\beta_A=\beta_B$) of expression divergence between two lineages. Rejection of this null indicates a rapid expression evolution in lineage $A$ ($\beta_A>\beta_B$ if $G_{AB}>0$) or in lineage $B$ ($\beta_A>\beta_B$ if $G_{AB}<0$). 
+
+Here, we apply a Z-score test to examine the signigicance
+
+$$Z\ =\ \frac{\bigtriangleup_{AB}}{\sqrt{Var\left(\bigtriangleup_{AB}\right)}}\tag{2.3}$$
+
+where $\bigtriangleup_{AB}$ equals to $G_{AB}$.
+
+\newpage
+
+## Statistical Procedure of the Relative Rate Test
+### Sampling variance of the expression distance 
+ In practice, calculating the sampling variance for the estimated coefficient ($r$) of correlation is usually carried out using the Fisher transformation, the inverse hyperbolic (artanh) of $r$, that is, $F\left(r\right)=0.5\ln\left(\frac{1+r}{1-r}\right)$. It follows that $F(r)$ approximately follows a normal distribution with $F(\rho)$ and the variance of $\frac{1}{N-3}$, where $\rho$ is the true value of the coefficient of correlation and $N$ is the sample size.  With the delta method, the inverse Fisher transformation brings the sampling variance back to the correlation scale, resulting in $Var\left(r\right)=\frac{\left(1-r^2\right)^2}{N-3}$. Consider the general expression distance given by Eq.(1.11). By the delta method, the large-sampling variance of $D_{12}$ is approximately given by
+$$Var\left(D_{12}\right)=\frac{Var\left(r_{12}\right)}{\left(r_{12}-\pi\right)^2}\tag{2.4}$$
+
+### Calculation of $Var(\bigtriangleup_{AB})$ 
+Since $\bigtriangleup_{AB}=D_{AC}-D_{BC}$, we have $Var(\bigtriangleup_{AB})=Var(D_{AC})+Var(D_{BC})-2Cov(D_{AC}, D_{BC})$. Moreover, we notice that the sampling covariance equals to $Cov(D_{AC}, D_{BC})=Var(c)$, as branch-$c$ is the one shared by those two distances. We develop a simple method to calculate $Var(c)$.
+
+1. First, the branch length can be estimated by $c=\frac{(D_{AC}+D_{BC}-D_{AB})}{2}$.
+2. we calculate a new variable $r_c=\pi+(1-\pi)e^{-c}$. After viewing $r_c$ as the estimated coefficient of correlation between species $C$ and the ancestral node $O$, by the Fisher transformation we obtain $Var(c)=\frac{(1-r_c^2)^2}{(N-3)}$. While two sampling variances $Var(D_{AC})$ and $Var(D_{BC})$ can be obtained directly from Eq.(2.4), together we have 
+
+$$Var\left(\bigtriangleup_{AB}\right)=\frac{Var\left(r_{AC}\right)}{\left(r_{AC}-\pi\right)^2}+\frac{Var\left(r_{BC}\right)}{\left(r_{BC}-\pi\right)^2}-\frac{2Var\left(r_c\right)}{\left(r_c-\pi\right)^2}\tag{2.5}$$
+\newpage
+
+## Case Study: Testing Fast-evolving Genes in Human
+In general, relative rate test is to investigate whether the expression of a given gene set in species A is fastly evolved  than that in species B. Typically, the gene set chosen to perform the test is set by users and is only a small part of all one-to-one orthologous genes (several hundreds). Moreover, the gene set usually have some specific biological characteristics, such like gene set from a GO term or a co-expression module.
+
+In the case study,  we choose gene set with row numbers between 200 to 800 to exemplify how relative rate test works.
+
+At first, we shall extract the gene expression values of brain tissue from the  *tetraExp* object. 
+
+Parameter `rowindex` defines which genes are selected to perfome the test. Usually, `rowindex` is a vector of numbers corresponded to indices of selecting rows or a vector of logical values (TRUE or FALSE) indicating whether to select the corresponding row or not.
+
+```{r, warning=FALSE, message=FALSE}
+#### load the tetraExp data firstly
+data(tetraExp)
+### extract the gene expression values of the selected genes from 'tetraExp' object.
+exp_table <-exptabTE(tetraExp, taxa = 'all', subtaxa = 'Brain',rowindex = 200:800)
+```
+
+After obtaining the expression table, performing relative rate test is straightforward by function `RelaRate.test`. It will extract the gene expression value of species $A$ (human), species $B$ (chimpanzee) and outgroup $C$ (macaque) from the  *exp_table* and will return a list of three elements. The first one is the $Z$-score value of the relative rate test, the second is the value of parameter `alternative`, and the last one is the $p$-value under the specified alternative hypothesis.
+
+```{r, warning=FALSE, message=FALSE}
+ztest <- RelaRate.test(expTable = exp_table, x = 'human', y = 'chimpanzee',
+                       outgroup = 'macaque', alternative = 'greater')
+ztest
+```
+So, using macaque as an outgroup, the expression of geneset with row numbers between 200 and 800 in human is not likely to evolved significantly faster than that in chimpanzee ($p$-value >0.05).
+

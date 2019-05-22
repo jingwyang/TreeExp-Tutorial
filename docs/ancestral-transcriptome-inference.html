@@ -1,0 +1,479 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>Chapter 7 Ancestral Transcriptome Inference | Tutorial: Use TreeExp for Phylogenetic Transcriptome Analysis</title>
+  <meta name="description" content="This is a minimal example of using the bookdown package to write a book. The output format for this example is bookdown::gitbook." />
+  <meta name="generator" content="bookdown 0.10 and GitBook 2.6.7" />
+
+  <meta property="og:title" content="Chapter 7 Ancestral Transcriptome Inference | Tutorial: Use TreeExp for Phylogenetic Transcriptome Analysis" />
+  <meta property="og:type" content="book" />
+  
+  
+  <meta property="og:description" content="This is a minimal example of using the bookdown package to write a book. The output format for this example is bookdown::gitbook." />
+  <meta name="github-repo" content="rstudio/bookdown-demo" />
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="Chapter 7 Ancestral Transcriptome Inference | Tutorial: Use TreeExp for Phylogenetic Transcriptome Analysis" />
+  
+  <meta name="twitter:description" content="This is a minimal example of using the bookdown package to write a book. The output format for this example is bookdown::gitbook." />
+  
+
+<meta name="author" content="Jingwen Yang" />
+
+
+<meta name="date" content="2019-05-22" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  
+<link rel="prev" href="estimating-the-strength-of-expression-conservation.html">
+<link rel="next" href="references.html">
+<script src="libs/jquery-2.2.3/jquery.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+
+<style type="text/css">
+a.sourceLine { display: inline-block; line-height: 1.25; }
+a.sourceLine { pointer-events: none; color: inherit; text-decoration: inherit; }
+a.sourceLine:empty { height: 1.2em; position: absolute; }
+.sourceCode { overflow: visible; }
+code.sourceCode { white-space: pre; position: relative; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+code.sourceCode { white-space: pre-wrap; }
+a.sourceLine { text-indent: -1em; padding-left: 1em; }
+}
+pre.numberSource a.sourceLine
+  { position: relative; }
+pre.numberSource a.sourceLine:empty
+  { position: absolute; }
+pre.numberSource a.sourceLine::before
+  { content: attr(data-line-number);
+    position: absolute; left: -5em; text-align: right; vertical-align: baseline;
+    border: none; pointer-events: all;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {  }
+@media screen {
+a.sourceLine::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li><a href="./"><i>TreeExp</i>-Tutorial</a></li>
+
+<li class="divider"></li>
+<li class="chapter" data-level="1" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i><b>1</b> Preface</a></li>
+<li class="chapter" data-level="2" data-path="introduction.html"><a href="introduction.html"><i class="fa fa-check"></i><b>2</b> Introduction</a><ul>
+<li class="chapter" data-level="2.1" data-path="introduction.html"><a href="introduction.html#scope"><i class="fa fa-check"></i><b>2.1</b> Scope</a></li>
+<li class="chapter" data-level="2.2" data-path="introduction.html"><a href="introduction.html#installation"><i class="fa fa-check"></i><b>2.2</b> Installation</a></li>
+<li class="chapter" data-level="2.3" data-path="introduction.html"><a href="introduction.html#citation"><i class="fa fa-check"></i><b>2.3</b> Citation</a></li>
+<li class="chapter" data-level="2.4" data-path="introduction.html"><a href="introduction.html#how-to-get-help"><i class="fa fa-check"></i><b>2.4</b> How to Get Help?</a></li>
+<li class="chapter" data-level="2.5" data-path="introduction.html"><a href="introduction.html#rna-seq-data-enbeded"><i class="fa fa-check"></i><b>2.5</b> RNA-seq Data Enbeded</a></li>
+</ul></li>
+<li class="chapter" data-level="3" data-path="data-manipulation-and-storage.html"><a href="data-manipulation-and-storage.html"><i class="fa fa-check"></i><b>3</b> Data Manipulation and Storage</a><ul>
+<li class="chapter" data-level="3.1" data-path="data-manipulation-and-storage.html"><a href="data-manipulation-and-storage.html#input-format"><i class="fa fa-check"></i><b>3.1</b> Input Format</a></li>
+<li class="chapter" data-level="3.2" data-path="data-manipulation-and-storage.html"><a href="data-manipulation-and-storage.html#example-of-input-data"><i class="fa fa-check"></i><b>3.2</b> Example of Input Data</a></li>
+<li class="chapter" data-level="3.3" data-path="data-manipulation-and-storage.html"><a href="data-manipulation-and-storage.html#construction"><i class="fa fa-check"></i><b>3.3</b> Construction</a></li>
+</ul></li>
+<li class="chapter" data-level="4" data-path="pairwise-expression-distance-and-expression-tree-making.html"><a href="pairwise-expression-distance-and-expression-tree-making.html"><i class="fa fa-check"></i><b>4</b> Pairwise Expression Distance and Expression Tree-Making</a><ul>
+<li class="chapter" data-level="4.1" data-path="pairwise-expression-distance-and-expression-tree-making.html"><a href="pairwise-expression-distance-and-expression-tree-making.html#theory"><i class="fa fa-check"></i><b>4.1</b> Theory</a><ul>
+<li class="chapter" data-level="4.1.1" data-path="pairwise-expression-distance-and-expression-tree-making.html"><a href="pairwise-expression-distance-and-expression-tree-making.html#the-ornstein-uhlenbeck-ou-model-of-transcriptome-evolution"><i class="fa fa-check"></i><b>4.1.1</b> The Ornstein-Uhlenbeck (OU) model of transcriptome evolution</a></li>
+<li class="chapter" data-level="4.1.2" data-path="pairwise-expression-distance-and-expression-tree-making.html"><a href="pairwise-expression-distance-and-expression-tree-making.html#transcriptome-evolution-between-species"><i class="fa fa-check"></i><b>4.1.2</b> Transcriptome evolution between species</a></li>
+<li class="chapter" data-level="4.1.3" data-path="pairwise-expression-distance-and-expression-tree-making.html"><a href="pairwise-expression-distance-and-expression-tree-making.html#the-estimation-problem-of-expression-distance"><i class="fa fa-check"></i><b>4.1.3</b> The estimation problem of expression distance</a></li>
+<li class="chapter" data-level="4.1.4" data-path="pairwise-expression-distance-and-expression-tree-making.html"><a href="pairwise-expression-distance-and-expression-tree-making.html#estimation-of-expression-distance-under-the-stationary-ou-model"><i class="fa fa-check"></i><b>4.1.4</b> Estimation of expression distance under the stationary OU model</a></li>
+<li class="chapter" data-level="4.1.5" data-path="pairwise-expression-distance-and-expression-tree-making.html"><a href="pairwise-expression-distance-and-expression-tree-making.html#expression-distance-estimation-when-expression-optima-vary-among-genes"><i class="fa fa-check"></i><b>4.1.5</b> Expression distance estimation when expression optima vary among genes</a></li>
+<li class="chapter" data-level="4.1.6" data-path="pairwise-expression-distance-and-expression-tree-making.html"><a href="pairwise-expression-distance-and-expression-tree-making.html#estimation-of-pi"><i class="fa fa-check"></i><b>4.1.6</b> Estimation of <span class="math inline">\(\pi\)</span></a></li>
+</ul></li>
+<li class="chapter" data-level="4.2" data-path="pairwise-expression-distance-and-expression-tree-making.html"><a href="pairwise-expression-distance-and-expression-tree-making.html#case-study-expression-tree-building"><i class="fa fa-check"></i><b>4.2</b> Case Study: Expression Tree Building</a><ul>
+<li class="chapter" data-level="4.2.1" data-path="pairwise-expression-distance-and-expression-tree-making.html"><a href="pairwise-expression-distance-and-expression-tree-making.html#distance-matrix"><i class="fa fa-check"></i><b>4.2.1</b> Distance matrix</a></li>
+<li class="chapter" data-level="4.2.2" data-path="pairwise-expression-distance-and-expression-tree-making.html"><a href="pairwise-expression-distance-and-expression-tree-making.html#expression-character-tree"><i class="fa fa-check"></i><b>4.2.2</b> Expression character tree</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="5" data-path="relative-rate-test-for-transcriptome-evolution.html"><a href="relative-rate-test-for-transcriptome-evolution.html"><i class="fa fa-check"></i><b>5</b> Relative Rate Test for Transcriptome Evolution</a><ul>
+<li class="chapter" data-level="5.1" data-path="relative-rate-test-for-transcriptome-evolution.html"><a href="relative-rate-test-for-transcriptome-evolution.html#theory-1"><i class="fa fa-check"></i><b>5.1</b> Theory</a></li>
+<li class="chapter" data-level="5.2" data-path="relative-rate-test-for-transcriptome-evolution.html"><a href="relative-rate-test-for-transcriptome-evolution.html#statistical-procedure-of-the-relative-rate-test"><i class="fa fa-check"></i><b>5.2</b> Statistical Procedure of the Relative Rate Test</a><ul>
+<li class="chapter" data-level="5.2.1" data-path="relative-rate-test-for-transcriptome-evolution.html"><a href="relative-rate-test-for-transcriptome-evolution.html#sampling-variance-of-the-expression-distance"><i class="fa fa-check"></i><b>5.2.1</b> Sampling variance of the expression distance</a></li>
+<li class="chapter" data-level="5.2.2" data-path="relative-rate-test-for-transcriptome-evolution.html"><a href="relative-rate-test-for-transcriptome-evolution.html#calculation-of-varbigtriangleup_ab"><i class="fa fa-check"></i><b>5.2.2</b> Calculation of <span class="math inline">\(Var(\bigtriangleup_{AB})\)</span></a></li>
+</ul></li>
+<li class="chapter" data-level="5.3" data-path="relative-rate-test-for-transcriptome-evolution.html"><a href="relative-rate-test-for-transcriptome-evolution.html#case-study-testing-fast-evolving-genes-in-human"><i class="fa fa-check"></i><b>5.3</b> Case Study: Testing Fast-evolving Genes in Human</a></li>
+</ul></li>
+<li class="chapter" data-level="6" data-path="estimating-the-strength-of-expression-conservation.html"><a href="estimating-the-strength-of-expression-conservation.html"><i class="fa fa-check"></i><b>6</b> Estimating the Strength of Expression Conservation</a><ul>
+<li class="chapter" data-level="6.1" data-path="estimating-the-strength-of-expression-conservation.html"><a href="estimating-the-strength-of-expression-conservation.html#theory-2"><i class="fa fa-check"></i><b>6.1</b> Theory</a><ul>
+<li class="chapter" data-level="6.1.1" data-path="estimating-the-strength-of-expression-conservation.html"><a href="estimating-the-strength-of-expression-conservation.html#stabilizing-selection-model-in-transcriptome-evolution-across-species"><i class="fa fa-check"></i><b>6.1.1</b> Stabilizing selection model in transcriptome evolution across species</a></li>
+<li class="chapter" data-level="6.1.2" data-path="estimating-the-strength-of-expression-conservation.html"><a href="estimating-the-strength-of-expression-conservation.html#stationary-ou-model-under-a-species-phylogeny"><i class="fa fa-check"></i><b>6.1.2</b> Stationary OU model under a species phylogeny</a></li>
+<li class="chapter" data-level="6.1.3" data-path="estimating-the-strength-of-expression-conservation.html"><a href="estimating-the-strength-of-expression-conservation.html#variation-of-w-among-genes"><i class="fa fa-check"></i><b>6.1.3</b> Variation of <span class="math inline">\(W\)</span> among genes</a></li>
+<li class="chapter" data-level="6.1.4" data-path="estimating-the-strength-of-expression-conservation.html"><a href="estimating-the-strength-of-expression-conservation.html#an-empirical-bayesian-framework-for-gene-specific-w-esitimation"><i class="fa fa-check"></i><b>6.1.4</b> An empirical Bayesian framework for gene-specific <span class="math inline">\(W\)</span> esitimation</a></li>
+</ul></li>
+<li class="chapter" data-level="6.2" data-path="estimating-the-strength-of-expression-conservation.html"><a href="estimating-the-strength-of-expression-conservation.html#statistical-procedure"><i class="fa fa-check"></i><b>6.2</b> Statistical Procedure</a></li>
+<li class="chapter" data-level="6.3" data-path="estimating-the-strength-of-expression-conservation.html"><a href="estimating-the-strength-of-expression-conservation.html#case-study-emprical-bayesian-esitimates-of-expression-conservation-of-genes"><i class="fa fa-check"></i><b>6.3</b> Case Study: Emprical Bayesian Esitimates of Expression Conservation of genes</a><ul>
+<li class="chapter" data-level="6.3.1" data-path="estimating-the-strength-of-expression-conservation.html"><a href="estimating-the-strength-of-expression-conservation.html#inversed-correlation-matrix"><i class="fa fa-check"></i><b>6.3.1</b> Inversed correlation matrix</a></li>
+<li class="chapter" data-level="6.3.2" data-path="estimating-the-strength-of-expression-conservation.html"><a href="estimating-the-strength-of-expression-conservation.html#estimation-of-gamma-parameters"><i class="fa fa-check"></i><b>6.3.2</b> Estimation of gamma parameters</a></li>
+<li class="chapter" data-level="6.3.3" data-path="estimating-the-strength-of-expression-conservation.html"><a href="estimating-the-strength-of-expression-conservation.html#bayesian-estimation-of-gene-specific-selection-pressure"><i class="fa fa-check"></i><b>6.3.3</b> Bayesian estimation of gene-specific selection pressure</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="7" data-path="ancestral-transcriptome-inference.html"><a href="ancestral-transcriptome-inference.html"><i class="fa fa-check"></i><b>7</b> Ancestral Transcriptome Inference</a><ul>
+<li class="chapter" data-level="7.1" data-path="ancestral-transcriptome-inference.html"><a href="ancestral-transcriptome-inference.html#theory-3"><i class="fa fa-check"></i><b>7.1</b> Theory</a><ul>
+<li class="chapter" data-level="7.1.1" data-path="ancestral-transcriptome-inference.html"><a href="ancestral-transcriptome-inference.html#from-brownian-motion-bm-model-to-ornstein-uhlenbeck-ou-model"><i class="fa fa-check"></i><b>7.1.1</b> From Brownian Motion (BM) model to Ornstein-Uhlenbeck (OU) model</a></li>
+<li class="chapter" data-level="7.1.2" data-path="ancestral-transcriptome-inference.html"><a href="ancestral-transcriptome-inference.html#the-ou-model-under-a-phylogeny"><i class="fa fa-check"></i><b>7.1.2</b> The OU model under a phylogeny</a></li>
+<li class="chapter" data-level="7.1.3" data-path="ancestral-transcriptome-inference.html"><a href="ancestral-transcriptome-inference.html#ancestral-gene-expression-inference-an-empirical-bayesian-approach"><i class="fa fa-check"></i><b>7.1.3</b> Ancestral gene expression inference: an empirical Bayesian approach</a></li>
+<li class="chapter" data-level="7.1.4" data-path="ancestral-transcriptome-inference.html"><a href="ancestral-transcriptome-inference.html#the-problem-of-ancestral-transcriptome-inference"><i class="fa fa-check"></i><b>7.1.4</b> The problem of ancestral transcriptome inference</a></li>
+<li class="chapter" data-level="7.1.5" data-path="ancestral-transcriptome-inference.html"><a href="ancestral-transcriptome-inference.html#stationary-ornstein-uhlenbeck-sou-model"><i class="fa fa-check"></i><b>7.1.5</b> Stationary Ornstein-Uhlenbeck (sOU) model</a></li>
+</ul></li>
+<li class="chapter" data-level="7.2" data-path="ancestral-transcriptome-inference.html"><a href="ancestral-transcriptome-inference.html#a-fast-algorithm-under-the-stationary-ou-model"><i class="fa fa-check"></i><b>7.2</b> A Fast Algorithm under the Stationary OU Model</a></li>
+<li class="chapter" data-level="7.3" data-path="ancestral-transcriptome-inference.html"><a href="ancestral-transcriptome-inference.html#case-study-ancestral-expression-inference-of-gene-emp1"><i class="fa fa-check"></i><b>7.3</b> Case Study: Ancestral Expression Inference of Gene <em>EMP1</em></a><ul>
+<li class="chapter" data-level="7.3.1" data-path="ancestral-transcriptome-inference.html"><a href="ancestral-transcriptome-inference.html#expression-character-tree-1"><i class="fa fa-check"></i><b>7.3.1</b> Expression character tree</a></li>
+<li class="chapter" data-level="7.3.2" data-path="ancestral-transcriptome-inference.html"><a href="ancestral-transcriptome-inference.html#creating-variance-co-variance-matrix"><i class="fa fa-check"></i><b>7.3.2</b> Creating variance co-variance matrix</a></li>
+<li class="chapter" data-level="7.3.3" data-path="ancestral-transcriptome-inference.html"><a href="ancestral-transcriptome-inference.html#ancestral-expression-estimation"><i class="fa fa-check"></i><b>7.3.3</b> Ancestral expression estimation</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="references.html"><a href="references.html"><i class="fa fa-check"></i>References</a></li>
+<li class="divider"></li>
+<li><a href="https://github.com/jingwyang/TreeExp" target="blank">Published with bookdown</a></li>
+
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Tutorial: Use <em>TreeExp</em> for Phylogenetic Transcriptome Analysis</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="ancestral-transcriptome-inference" class="section level1">
+<h1><span class="header-section-number">Chapter 7</span> Ancestral Transcriptome Inference</h1>
+<div id="theory-3" class="section level2">
+<h2><span class="header-section-number">7.1</span> Theory</h2>
+<p>The empirical Bayesian method for ancestral expression inference along a phylogeny is illustrated in <strong>Figure 3A</strong>. While the theoretical foundation has been well formulated by the work of <span class="citation">(Gu <a href="#ref-gu2004">2004</a>)</span> based on the Brownian motion (BM) model, some updates and refinements are necessary before the Ornstein-Uhlenbeck (OU) model that is biologically more realistic,e.g.,<span class="citation">(Bedford and Hartl <a href="#ref-bedford2009">2009</a>)</span>.</p>
+<div id="from-brownian-motion-bm-model-to-ornstein-uhlenbeck-ou-model" class="section level3">
+<h3><span class="header-section-number">7.1.1</span> From Brownian Motion (BM) model to Ornstein-Uhlenbeck (OU) model</h3>
+<p>Let <span class="math inline">\(X\)</span> be the expression level of a gene. Brownian motion is the simplest model to describe changes in gene expression between orthologous genes, in which the degree of stochastic change away from the current state is independent of both state and time. It is well-known that the probability density function of a Brownian motion is given by
+<span class="math display">\[p\left(x\mid x_0,\  \sigma^{2t}\right)\tag{4.1}\]</span>
+where <span class="math inline">\(x_0\)</span> is the state of the process at time 0. In the evolutionary context, <span class="math inline">\(\sigma^{2}\)</span> describes the rate of expression divergence only driven by the mutational effects, which corresponds to the case of selective neutrality.</p>
+<p>As the basic model, the notion of optimal expression claims that stabilizing selection, which maintains the optima under the background of random mutations, dominates the transcriptome evolution
+<span class="citation">(Hansen and Martins <a href="#ref-hansen1996">1996</a>)</span>. For instance, under-expression of metabolic enzymes may slow the metabolic flux, while over-expression may expose the cell to additional toxic misfolded proteins. Following the most common practice, the stabilizing selection on the expression of a gene (<span class="math inline">\(x\)</span>) satisfies a Gaussian-like fitness,</p>
+<p><span class="math display">\[f\left(x\right)=e^{-\frac{\omega\left(x-\mu\right)^2}{2}}\tag{4.2}\]</span>
+where <span class="math inline">\(\mu\)</span> is the optimal value, <span class="math inline">\(\omega\)</span> is the coefficient of stabilizing selection; a large <span class="math inline">\(\omega\)</span> means a strong selection pressure, and vice versa. Treating <span class="math inline">\(f\left(x\right)\)</span> as the cost function, one can mathematically show that the evolution of <span class="math inline">\(X\)</span> follows an Ornstein-Uhlenbeck (OU) stochastic process. That is, given the initial expression value $x_$0, the OU model predicts that <span class="math inline">\(x\left(t\right)\)</span>, the values of <span class="math inline">\(X\)</span> after <span class="math inline">\(t\)</span> evolutionary time units, follows a normal distribution with the following mean <span class="math inline">\(E\left[x|x_0\right]\)</span> and variance <span class="math inline">\(V\left(x|x_0\right)\)</span></p>
+<p><span class="math display">\[
+\begin{split}
+E\left[x|x_0\right]&amp;=\mu\left(1-e^{-\beta t}\right)+x_0e^{-\beta t}\\
+V\left(x|x_0\right)&amp;=1-\frac{e^{-2\beta t}}{W}
+\end{split}\tag{4.3}
+\]</span>
+respectively, where the rate of expression evolution <span class="math inline">\(\beta=W\sigma{2}\)</span>, and <span class="math inline">\(W=4Ne\omega\)</span>; <span class="math inline">\(Ne\)</span> is the effective population size<span class="citation">(Gu <a href="#ref-gu2004">2004</a> <span class="citation">Hansen and Martins (<a href="#ref-hansen1996">1996</a>)</span>)</span>. Hence, an OU model can be concisely represented by <span class="math inline">\(OU\left(x\mid x_0;\  t,\  \beta,\  W\right)\)</span>. Intuitively speaking, an OU process can be thought of as adding an elastic spring to a Brownian motion. As random mutations push the gene expression farther away from this fixed optimum, the strength of elastic return increases proportionally.</p>
+</div>
+<div id="the-ou-model-under-a-phylogeny" class="section level3">
+<h3><span class="header-section-number">7.1.2</span> The OU model under a phylogeny</h3>
+<p>Given the expression level (<span class="math inline">\(x_0\)</span>) at the root O of a known phylogeny with n species, the joint density of expression levels of a gene, <span class="math inline">\(\boldsymbol{x}=(x_1,\cdots,x_n)\)</span>, is denoted by <span class="math inline">\(P\left(\boldsymbol{x}\right)\)</span>. It has been shown <span class="citation">(Hansen and Martins <a href="#ref-hansen1996">1996</a>)</span> that it follows a multi-variate normal distribution, that is, <span class="math inline">\(P\left(\boldsymbol{x}\right)=N\left(\boldsymbol{x};\  \boldsymbol{\mu},\  \boldsymbol{V}\right)\)</span>, or explicitly<br />
+<span class="math display">\[P\left(\boldsymbol{x}\right)=\frac{1}{\left(\sqrt{2\pi}\right)^n\left|\boldsymbol{V}\right|^{\frac{1}{2}}}\exp\left\{-\frac{\left(\boldsymbol{x}-\boldsymbol{\mu}\right)&#39;\boldsymbol{V}^{\left\{-1\right\}}\left(\boldsymbol{x}-\boldsymbol{\mu}\right)}{2}\right\}\tag{4.4}\]</span>
+where the mean vector (<span class="math inline">\(\boldsymbol{\mu}\)</span>) and the variance-covariance matrix (<span class="math inline">\(\boldsymbol{V}\)</span>) depends on the phylogenetic structure, branch lengths, rates of expression evolution and the initial expression level (<span class="math inline">\(x_0\)</span>) at root <span class="math inline">\(O\)</span>.</p>
+<div class="figure"><span id="fig:unnamed-chunk-34"></span>
+<img src="Figure3.png" alt="Figure3. The schematic of ancestral expression inference along a phylogeny" width="90%" />
+<p class="caption">
+Figure 7.1: Figure3. The schematic of ancestral expression inference along a phylogeny
+</p>
+</div>
+</div>
+<div id="ancestral-gene-expression-inference-an-empirical-bayesian-approach" class="section level3">
+<h3><span class="header-section-number">7.1.3</span> Ancestral gene expression inference: an empirical Bayesian approach</h3>
+<p>Our approach provides an empirical Bayesian procedure to infer the expression states of ancestral nodes along a given phylogeny. Let <span class="math inline">\(\boldsymbol{x}=(x_1,\cdots,x_n)\)</span> be the observed expression profile and <span class="math inline">\(y\)</span> be that at any ancestral node of interest (<strong>Figure 3A</strong>). According to the Bayes rule, the posterior density <span class="math inline">\(P\left(y\mid x_1...,x_n\right)\)</span> is computed as follows</p>
+<p><span class="math display">\[P\left(y\mid x_1,\cdots,\  x_n\right)=\frac{P\left(x_1,\  \cdots,\  x_n,\  y\right)}{P\left(x_1,\  \cdots,\  x_n\right)}\tag{4.5}\]</span>
+This claims that <span class="math inline">\(P\left(x_1,\  \cdots,\  x_n\right)\)</span> is an <span class="math inline">\(n\)</span>-variate normal density, denoted by <span class="math inline">\(N\left(x_1,\  \cdots,\  x_n, \boldsymbol{\mu},\boldsymbol{V}\right)\)</span>. Let <span class="math inline">\(M=n+1\)</span> and regard the ancestral level <span class="math inline">\(y\)</span> as an additional variable <span class="math inline">\(x{n+1}\)</span>. Under the BM model, Gu<span class="citation">(Gu <a href="#ref-gu2004">2004</a>)</span> showed that <span class="math inline">\(P\left(x_1,\  \cdots,\  x_n,\  y\right)\)</span> is an (<span class="math inline">\(n+1\)</span>)-variate normal density, denoted by <span class="math inline">\(N\left(x_1,\  \cdots,\  x_n, \boldsymbol{\mu},\boldsymbol{V_{M}}\right)\)</span>. The extended variance-covariance matrix <span class="math inline">\(V_{M}\)</span> has the following structure:</p>
+<p><span class="math display">\[
+\boldsymbol{V_M}=
+ \left[
+ \begin{matrix}
+   V &amp; \boldsymbol{H}\\
+   \boldsymbol{H^{&#39;}} &amp; V_{n+1,n+1} \\
+  \end{matrix}
+  \right] \tag{4.6}
+\]</span></p>
+<p>where <span class="math inline">\(\boldsymbol{H}=\left(H_1,\  \cdots,\  H_n\right)^T\)</span>. That is, for <span class="math inline">\(i\)</span>, <span class="math inline">\(j=1,\  \cdots n\)</span>, the <span class="math inline">\(ij\)</span>-th element of <span class="math inline">\(\boldsymbol{V_M}\)</span> is equal to that of <span class="math inline">\(\boldsymbol{V}\)</span>. For any <span class="math inline">\(i=1,\  \cdots n+1\)</span>, the element <span class="math inline">\(V_{i,n+1}=V_{n+1,i}=H_i\)</span>, respectively. It is straightforward to show that these results holds under the OU model, except for the details of <span class="math inline">\(\boldsymbol{V_M}\)</span> elements. It follows that the posterior density <span class="math inline">\(P\left(y\mid x_1,\cdots,\  x_n\right)\)</span> is a normal density. Let <span class="math inline">\(\boldsymbol{C}=\boldsymbol{V_M}^{-1}\)</span>; <span class="math inline">\(c_{ij}\)</span> is the <span class="math inline">\(ij\)</span>-th element of <span class="math inline">\(\boldsymbol{C}\)</span>. After some algebras we obtain</p>
+<p><span class="math display">\[P\left(y\mid x_1,\cdots,\  x_n\right)=\frac{1}{\sqrt{2\pi\sigma_{y\mid x}}}\exp\left(-\frac{1}{2\sigma_{y\mid x}^2}\left[y-\mu+\sum_{i=1}^N\frac{c_{i,n+1}}{c_{n+1,n+1}}\left(x_i-\mu\right)\right]^2\right)\tag{4.7}\]</span>
+where <span class="math inline">\(\sigma_{y\mid x}^2=\frac{1}{c_{n+1,n+1}}\)</span> is the (posterior) variance of <span class="math inline">\(y\)</span>.</p>
+</div>
+<div id="the-problem-of-ancestral-transcriptome-inference" class="section level3">
+<h3><span class="header-section-number">7.1.4</span> The problem of ancestral transcriptome inference</h3>
+<p>Under the stabilizing selection model that the transcriptome evolution follows an Ornstein-Uhlenbeck (OU) stochastic process, the problem is to infer the expression level (<span class="math inline">\(y\)</span>) of an ancestral of interest along a given phylogeny (<strong>Figure 3A</strong>). Through the empirical Bayesian procedure, we have shown that the posterior density <span class="math inline">\(P\left(y\mid x_1,\  \cdots,\  x_n\right)\)</span>is given by Eq.(4.7), and the the posterior mean of <span class="math inline">\(y\)</span> conditional of <span class="math inline">\(x_1,\  \cdots,\  x_n\)</span> can be given by
+<span class="math display">\[y\mid x\  =E\left[y\mid x_1,\  \cdots,\  x_n\right]\  =b_0+\sum_{i=1}^nb_ix_i\tag{4.8}\]</span>
+where <span class="math inline">\(b_i=-\frac{c_{i,n+1}}{c_{n+1,\  n+1}}\)</span>and <span class="math inline">\(b_0=\mu\left(1+b_1+\cdots+b_n\right)\)</span>. Hence, it can be used as an empirical Bayesian predictor for the ancestral state of gene expression. In short, the ancestral expression inference is a simple linear combination of the current expressions; their (linear) coefficients are determined by the phylogeny and the model parameters.</p>
+<p>From the view of practice, it appears that the problem of ancestral expression inference is virtually to determine those linear coefficients that are associated with each ancestral node of interest (<span class="math inline">\(b_1,\  \cdots,\  b_n\)</span>). However, when the general OU model is applied, some computational difficulties may arise, mainly due to the model complexity that causes the problem of over-parametrization. To this end, we introduce the stationary OU model (sOU), under which we develop a feasible procedure to calculate the coefficients <span class="math inline">\(b_i\)</span>, <span class="math inline">\(i=0,\cdots,n\)</span>.</p>
+</div>
+<div id="stationary-ornstein-uhlenbeck-sou-model" class="section level3">
+<h3><span class="header-section-number">7.1.5</span> Stationary Ornstein-Uhlenbeck (sOU) model</h3>
+<p>Let <span class="math inline">\(z_0\)</span> be the expression level at the birth time (node <span class="math inline">\(Z\)</span>) of a particular tissue (<strong>Figure 3C</strong>). Since then, the evolutionary change of <span class="math inline">\(x_0\)</span> along the lineage follows an OU model given by <span class="math inline">\(OU\left(x_0\mid z_0; \tau,\beta_0, W\right)\)</span>. The stationary OU model (sOU) invokes two assumptions.</p>
+<ol style="list-style-type: decimal">
+<li>The timing of tissue origin was much more ancient than the root of species phylogeny under study such that node O can be approximated by the stationary condition of <span class="math inline">\(OU\left(x_0\mid z_0; \tau,\beta_0, W\right)\)</span> as <span class="math inline">\(\tau \rightarrow \infty\)</span>. In other words, the mean and the variance of <span class="math inline">\(x_0\)</span> at the root of phylogeny is simply given by <span class="math inline">\(\mu\)</span> and <span class="math inline">\(\rho^2 = 1/W\)</span>, respectively.</li>
+<li>Since then, the optimal level (<span class="math inline">\(\mu\)</span>) and the strength of stabilizing selection (<span class="math inline">\(W\)</span>) remain constant during the course of evolution along the species phylogeny. Consequently, the expression variances in all internal and external nodes are the same, which equal to <span class="math inline">\(1/W\)</span>. Under the stationary OU model, it can be shown that the variance-covariance matrix <span class="math inline">\(\boldsymbol{V}\)</span> is root-independent<span class="citation">(Hansen and Martins <a href="#ref-hansen1996">1996</a>)</span>.</li>
+</ol>
+
+</div>
+</div>
+<div id="a-fast-algorithm-under-the-stationary-ou-model" class="section level2">
+<h2><span class="header-section-number">7.2</span> A Fast Algorithm under the Stationary OU Model</h2>
+<p>The algorithm to calculate the coefficients <span class="math inline">\(b_0,\  b_1,\  \cdots,\  b_n\)</span> under the stationary OU model can be briefed as follows.</p>
+<ul>
+<li>As the expression variance is expected to be the same among all species, the expression variance (<span class="math inline">\(V_0\)</span>) is the simple average of expression variances among species.</li>
+<li>The coefficient of correlation between the <span class="math inline">\(i\)</span>-th and <span class="math inline">\(j\)</span>-th external nodes, denoted by <span class="math inline">\(R_{ij}\)</span>, is calculated by the standard approach.</li>
+<li>Let <span class="math inline">\(\boldsymbol{R}\)</span> be the matrix of coefficients of correlation. It is straightforward to calculate the variance-covariance matrix of <span class="math inline">\(P\left(x_1,\cdots,x_n\right)\)</span> by <span class="math inline">\(\boldsymbol{V}=V_0\boldsymbol{R}\)</span>.<br />
+</li>
+<li>The difficulty in calculating the variance-covariance matrix of <span class="math inline">\(P\left(x_1,\cdots,x_n,y\right)\)</span>, <span class="math inline">\(\boldsymbol{V_M}\)</span>, is how to calculate the covariance elements between the <span class="math inline">\(i\)</span>-th external node and the (<span class="math inline">\(n+1\)</span>)-th (internal) node, <span class="math inline">\(i=1,\cdots,n\)</span> (<strong>Figure 3C</strong>). Under the stationary OU model, we show <span class="math inline">\(V_{i,n+1}=V_{0}e^{-di}\)</span>, where <span class="math inline">\(d_i\)</span> is the expression branch length from the internal node (<span class="math inline">\(y\)</span>) to the <span class="math inline">\(i\)</span>-th external node.</li>
+</ul>
+<p>We develop a simple method, to estimate <span class="math inline">\(d_i\)</span> by mapping the expression distance matrix onto the known phylogeny. As <span class="math inline">\(R_{n+1,i}= R_{i,n+1}\)</span> and <span class="math inline">\(R_{n+1,n+1}=1\)</span>, we then obtain <span class="math inline">\(\boldsymbol{V_M}\)</span> and its inverse matrix <span class="math inline">\(\boldsymbol{C}\)</span>.</p>
+
+</div>
+<div id="case-study-ancestral-expression-inference-of-gene-emp1" class="section level2">
+<h2><span class="header-section-number">7.3</span> Case Study: Ancestral Expression Inference of Gene <em>EMP1</em></h2>
+<p>In here, we will walk through an example of how to perform ancestral expression estimation on primates’ expression data of brain tissue. The test dataset inluce brain expression values from six primates speceis which are Human, Chimpanzee, Bonobo, Gorilla, Orangutan and Macaque.</p>
+<div id="expression-character-tree-1" class="section level3">
+<h3><span class="header-section-number">7.3.1</span> Expression character tree</h3>
+<p>Note that the presumption of ancestral state inference is that the transcriptome datasets must contain sufficient phylogentic signals. An empirical approach to verifying this assumption is to compare the inferred tree with the species tree.</p>
+<p>We first generate brain expression distance matrix of these six primate species:</p>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">data</span>(<span class="st">&#39;tetraExp&#39;</span>)
+primate_group &lt;-<span class="kw">c</span>(<span class="st">&#39;human&#39;</span>,<span class="st">&#39;chimpanzee&#39;</span>,<span class="st">&#39;gibbon&#39;</span>,<span class="st">&#39;bonobo&#39;</span>,<span class="st">&#39;gorilla&#39;</span>,<span class="st">&#39;macaque&#39;</span>)
+
+dismat &lt;-<span class="st"> </span><span class="kw">expdist</span>(tetraExp, <span class="dt">taxa =</span> primate_group, 
+                  <span class="dt">subtaxa =</span> <span class="st">&quot;brain&quot;</span>, <span class="dt">method =</span> <span class="st">&quot;sou&quot;</span>)
+dismat</code></pre>
+<pre><code>##                  Human_Brain Chimpanzee_Brain Bonobo_Brain Gorilla_Brain
+## Human_Brain       0.00000000       0.04007952   0.05547931    0.04648489
+## Chimpanzee_Brain  0.04007952       0.00000000   0.02697931    0.04443524
+## Bonobo_Brain      0.05547931       0.02697931   0.00000000    0.05732270
+## Gorilla_Brain     0.04648489       0.04443524   0.05732270    0.00000000
+## Macaque_Brain     0.07361915       0.07284999   0.07870868    0.07410792
+##                  Macaque_Brain
+## Human_Brain         0.07361915
+## Chimpanzee_Brain    0.07284999
+## Bonobo_Brain        0.07870868
+## Gorilla_Brain       0.07410792
+## Macaque_Brain       0.00000000</code></pre>
+<p>Alternatively, distance matrix can also be generated via a twostep procedure. First is to exstract the expression data of self-defined primate species and then calculate the pairwise distance of the expression data.</p>
+<p>The two ways to construct distance matrix come to the same results.</p>
+<pre class="sourceCode r"><code class="sourceCode r">primate_expT &lt;-<span class="kw">exptabTE</span>(<span class="dt">objects =</span> tetraExp,<span class="dt">taxa =</span> primate_group,
+                            <span class="dt">subtaxa =</span> <span class="st">&#39;Brain&#39;</span>)
+dismat &lt;-<span class="st"> </span><span class="kw">dist.sou</span>(primate_expT)
+dismat</code></pre>
+<pre><code>##                  Human_Brain Chimpanzee_Brain Bonobo_Brain Gorilla_Brain
+## Human_Brain       0.00000000       0.04007952   0.05547931    0.04648489
+## Chimpanzee_Brain  0.04007952       0.00000000   0.02697931    0.04443524
+## Bonobo_Brain      0.05547931       0.02697931   0.00000000    0.05732270
+## Gorilla_Brain     0.04648489       0.04443524   0.05732270    0.00000000
+## Macaque_Brain     0.07361915       0.07284999   0.07870868    0.07410792
+##                  Macaque_Brain
+## Human_Brain         0.07361915
+## Chimpanzee_Brain    0.07284999
+## Bonobo_Brain        0.07870868
+## Gorilla_Brain       0.07410792
+## Macaque_Brain       0.00000000</code></pre>
+<p>Next, we build the NJ-tree based on the distance matrix we have just constructed.</p>
+<pre class="sourceCode r"><code class="sourceCode r">primate_tree &lt;-<span class="st"> </span><span class="kw">NJ</span>(dismat)</code></pre>
+<p>To compare the built expression tree to the species tree, we can root the tree with respect to the specified outgroup (‘Macaque_Brain’ here) and plot the tree.</p>
+<pre class="sourceCode r"><code class="sourceCode r">primate_tree_root &lt;-<span class="st"> </span><span class="kw">root</span>(primate_tree, <span class="dt">outgroup =</span> <span class="st">&quot;Macaque_Brain&quot;</span>, <span class="dt">resolve.root =</span> <span class="ot">TRUE</span>)
+bs&lt;-<span class="kw">boot.exphy</span>(<span class="dt">phy=</span>primate_tree_root, <span class="dt">x =</span> primate_expT, <span class="dt">method =</span> <span class="st">&#39;sou&#39;</span>, <span class="dt">outgroup =</span> <span class="st">&#39;Macaque_Brain&#39;</span>,<span class="dt">B =</span> <span class="dv">100</span>) 
+primate_tree_root<span class="op">$</span>node.label =<span class="st"> </span>bs 
+<span class="kw">plot</span>(primate_tree_root, <span class="dt">show.node.label =</span> <span class="ot">TRUE</span>)</code></pre>
+<p><img src="TreeExp-Tutorial_files/figure-html/unnamed-chunk-38-1.png" width="576" /></p>
+<p>Bootstrap values is helpful to confirm the accuracy of the infered tree. From the tree we built, we can approximatly conclude the the inferred trees are virtually consistant with the know species phylogeny with high bootstrap (53-100) supports.</p>
+</div>
+<div id="creating-variance-co-variance-matrix" class="section level3">
+<h3><span class="header-section-number">7.3.2</span> Creating variance co-variance matrix</h3>
+<p>In this step, we will calculate the variance-covariance matrix of <span class="math inline">\(P\left(x_1,\cdots,x_n,y\right)\)</span> by <span class="math inline">\(\boldsymbol{V_M}=V_0\boldsymbol{R_M}\)</span>. Since <span class="math inline">\(V_{i,n+1}=V_{0}e^{-di}\)</span> where <span class="math inline">\(d_i\)</span> is the expression branch length from the internal node (<span class="math inline">\(y\)</span>) to the <span class="math inline">\(i\)</span>-th external node and could be estimated by mapping the expression distance matrix onto the known phylogeny, the primate expression tree built in the previous step is necessary here as input data.</p>
+<p>Ultimately, we are going to get the inverse matix <span class="math inline">\(\boldsymbol{C}\)</span> of variance-covariance matrix <span class="math inline">\(\boldsymbol{V_M}\)</span> applying <code>varmatInv</code> function.</p>
+<pre class="sourceCode r"><code class="sourceCode r">var_mat &lt;-<span class="st"> </span><span class="kw">varMatInv</span>(<span class="dt">objects =</span> tetraExp,<span class="dt">phy =</span> primate_tree,
+                     <span class="dt">taxa =</span> primate_group, <span class="dt">subtaxa =</span> <span class="st">&quot;Brain&quot;</span>)
+var_mat</code></pre>
+<pre><code>##               1             2             3             4             5
+## 1  3.761503e+00  3.839017e-14  1.863141e-14  1.718778e-15  2.986023e-16
+## 2  4.002279e-14  1.057909e+01  1.801250e-15 -4.149628e-14  2.731195e-15
+## 3  5.181866e-15 -1.487986e-15  4.350370e+00 -8.931328e-15  5.002194e-15
+## 4  3.293732e-15 -4.201812e-14 -8.821499e-15  3.487037e+00  8.128807e-15
+## 5  8.848801e-16  1.866274e-14  1.180825e-14  2.844059e-15  1.718434e+00
+## 6 -2.530769e-13  2.738326e-12  6.736726e-13 -3.404190e+00 -1.634523e+00
+## 7 -3.678729e+00 -2.820728e-12 -7.347222e-13 -3.490486e-13  4.510490e-14
+## 8 -6.186680e-14 -1.049691e+01 -4.267722e+00  9.005267e-14 -2.995133e-15
+##               6             7             8
+## 1 -2.133443e-13 -3.678729e+00 -7.212699e-14
+## 2  2.707509e-12 -2.782327e-12 -1.049691e+01
+## 3  2.558188e-13 -2.720751e-13 -4.267722e+00
+## 4 -3.404190e+00  1.114175e-14  6.874319e-14
+## 5 -1.634523e+00  5.085846e-14 -4.585997e-14
+## 6  1.145600e+02 -1.096000e+02 -3.622996e-12
+## 7 -1.096000e+02  1.199982e+02 -6.799842e+00
+## 8 -3.886726e-12 -6.799842e+00  2.148421e+01</code></pre>
+</div>
+<div id="ancestral-expression-estimation" class="section level3">
+<h3><span class="header-section-number">7.3.3</span> Ancestral expression estimation</h3>
+<p>Here, we extract the brain expression values of six primates species, locate <em>EMP1</em>(ENSEMBL ID: ENSG00000105695) gene and extract its expression value vector:</p>
+<pre class="sourceCode r"><code class="sourceCode r">primate_expT &lt;-<span class="kw">exptabTE</span>(<span class="dt">objects =</span> tetraExp,<span class="dt">taxa =</span> primate_group,
+                            <span class="dt">subtaxa =</span> <span class="st">&#39;Brain&#39;</span>)
+
+EMP1_expression &lt;-<span class="st"> </span>primate_expT[<span class="kw">which</span>(<span class="kw">rownames</span>(primate_expT) <span class="op">==</span><span class="st"> &quot;ENSG00000134531&quot;</span>),]</code></pre>
+<p>Then, function <code>aee</code> will estimate the posterior mean of <span class="math inline">\(y\)</span> conditional of <span class="math inline">\(x_1,\cdots,x_n\)</span> based on Eq.(4.8).</p>
+<pre class="sourceCode r"><code class="sourceCode r">EMP1_anc &lt;-<span class="st"> </span><span class="kw">aee</span>(<span class="dt">x =</span> EMP1_expression, <span class="dt">phy =</span> primate_tree, <span class="dt">mat =</span> var_mat)</code></pre>
+<p>Finally, we map these estimations on the primate expression tree to give a direct presentation of these values:</p>
+<pre class="sourceCode r"><code class="sourceCode r">primate_tree<span class="op">$</span>node.label &lt;-<span class="st"> </span><span class="kw">sprintf</span>(<span class="st">&quot;%.4f&quot;</span>,EMP1_anc<span class="op">$</span>est)
+primate_tree<span class="op">$</span>tip.label &lt;-<span class="st"> </span><span class="kw">paste0</span>(primate_tree<span class="op">$</span>tip.label, <span class="st">&quot;  &quot;</span>, 
+                                 <span class="kw">sprintf</span>(<span class="st">&quot;%.4f&quot;</span>, EMP1_expression))
+
+<span class="kw">plot</span>(primate_tree, <span class="dt">edge.color =</span> <span class="st">&quot;grey80&quot;</span>, <span class="dt">edge.width =</span> <span class="dv">4</span>, 
+     <span class="dt">show.node.label =</span> <span class="ot">TRUE</span>, <span class="dt">align.tip.label =</span> <span class="ot">TRUE</span>)</code></pre>
+<p><img src="TreeExp-Tutorial_files/figure-html/unnamed-chunk-42-1.png" width="576" /></p>
+
+</div>
+</div>
+</div>
+<h3>References</h3>
+<div id="refs" class="references">
+<div id="ref-bedford2009">
+<p>Bedford, Trevor, and Daniel L. Hartl. 2009. “Optimization of gene expression by natural selection.” <em>Proceedings of the National Academy of Sciences</em> 106:1133–8. <a href="https://doi.org/10.1073/pnas.0812009106" class="uri">https://doi.org/10.1073/pnas.0812009106</a>.</p>
+</div>
+<div id="ref-gu2004">
+<p>Gu, Xun. 2004. “Statistical Framework for Phylogenomic Analysis of Gene Family Expression Profiles.” <em>Genetics</em> 167:531–42. <a href="https://doi.org/10.1534/genetics.167.1.531" class="uri">https://doi.org/10.1534/genetics.167.1.531</a>.</p>
+</div>
+<div id="ref-hansen1996">
+<p>Hansen, Thomas F, and Emilia P Martins. 1996. “Translating Between Microevolutionary Process and Macroevolutionary Patterns: The Correlation Structure of Interspecific Data.” <em>Evolution</em> 50:1404. <a href="https://doi.org/10.2307/2410878" class="uri">https://doi.org/10.2307/2410878</a>.</p>
+</div>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="estimating-the-strength-of-expression-conservation.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="references.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/lunr.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": false,
+"facebook": true,
+"twitter": true,
+"google": false,
+"linkedin": false,
+"weibo": false,
+"instapaper": false,
+"vk": false,
+"all": ["facebook", "google", "twitter", "linkedin", "weibo", "instapaper"]
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": "https://github.com/rstudio/bookdown-demo/edit/master/06-Ancestral.Rmd",
+"text": "Edit"
+},
+"history": {
+"link": null,
+"text": null
+},
+"download": ["TreeExp-Tutorial.pdf", "TreeExp-Tutorial.epub"],
+"toc": {
+"collapse": "subsection"
+}
+});
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "true";
+    if (src === "" || src === "true") src = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:" && /^https?:/.test(src))
+      src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+</body>
+
+</html>
