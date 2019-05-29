@@ -11,3 +11,7 @@ link-citations: yes
 github-repo: rstudio/bookdown-demo
 description: "This is a minimal example of using the bookdown package to write a book. The output format for this example is bookdown::gitbook."
 ---
+
+# Preface
+
+The central topic of evolutionary transcriptomics is to investigate how gene regulation network (GRN) plays a key role in phenotypic innovations [@king1975@harrison2012@lehner2013]. To this end, a unified, statistically sound framework for phylogenetic transcriptome analysis is desirable. In addition to some basic tools implemented in the previous version, *TreeExp 1.0*[@doi:10.1002/jez.b.22707], for phylogenetic transcriptome analysis, the R-package *TreeExp2* is the updated version with a suite of advanced, recently developed methods.

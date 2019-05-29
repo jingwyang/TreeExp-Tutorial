@@ -4,11 +4,11 @@
 
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <title>Chapter 5 Relative Rate Test for Transcriptome Evolution | Tutorial: Use TreeExp for Phylogenetic Transcriptome Analysis</title>
+  <title>Tutorial: Use TreeExp for Phylogenetic Transcriptome Analysis</title>
   <meta name="description" content="This is a minimal example of using the bookdown package to write a book. The output format for this example is bookdown::gitbook." />
   <meta name="generator" content="bookdown 0.10 and GitBook 2.6.7" />
 
-  <meta property="og:title" content="Chapter 5 Relative Rate Test for Transcriptome Evolution | Tutorial: Use TreeExp for Phylogenetic Transcriptome Analysis" />
+  <meta property="og:title" content="Tutorial: Use TreeExp for Phylogenetic Transcriptome Analysis" />
   <meta property="og:type" content="book" />
   
   
@@ -16,7 +16,7 @@
   <meta name="github-repo" content="rstudio/bookdown-demo" />
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="Chapter 5 Relative Rate Test for Transcriptome Evolution | Tutorial: Use TreeExp for Phylogenetic Transcriptome Analysis" />
+  <meta name="twitter:title" content="Tutorial: Use TreeExp for Phylogenetic Transcriptome Analysis" />
   
   <meta name="twitter:description" content="This is a minimal example of using the bookdown package to write a book. The output format for this example is bookdown::gitbook." />
   
@@ -31,8 +31,8 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="black" />
   
   
-<link rel="prev" href="pairwise-expression-distance-and-expression-tree-making.html">
-<link rel="next" href="estimating-the-strength-of-expression-conservation.html">
+
+<link rel="next" href="introduction.html">
 <script src="libs/jquery-2.2.3/jquery.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
@@ -216,70 +216,29 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
           <div class="page-inner">
 
             <section class="normal" id="section-">
-<div id="relative-rate-test-for-transcriptome-evolution" class="section level1">
-<h1><span class="header-section-number">Chapter 5</span> Relative Rate Test for Transcriptome Evolution</h1>
-<div id="theory-1" class="section level2">
-<h2><span class="header-section-number">5.1</span> Theory</h2>
-<p>Given a set (<span class="math inline">\(N\)</span>) of orthologous genes of two species denoted by <span class="math inline">\(A\)</span> and <span class="math inline">\(B\)</span>, respectively, the goal of relative rate test is to investigate whether the rate of transcriptome evolution, on average, differs significantly between two lineages of species <span class="math inline">\(A\)</span> and <span class="math inline">\(B\)</span>. To this end, we need the third species (species <span class="math inline">\(C\)</span>) as outgroup (<strong>Figure 1B</strong>).</p>
-<p>Let <span class="math inline">\(D_{AB}\)</span>, <span class="math inline">\(D_{AC}\)</span> and <span class="math inline">\(D_{BC}\)</span> be the pairwise expression distances, respectively, which can be estimated by the methods we formulated above. Let <span class="math inline">\(a\)</span>, <span class="math inline">\(b\)</span>, <span class="math inline">\(c\)</span> be the expression branch lengths of corresponding three lineages <span class="math inline">\(A\)</span>, <span class="math inline">\(B\)</span> and <span class="math inline">\(C\)</span>, respectively. Assuming that these expression distances are additive, we have</p>
-<p><span class="math display">\[
-\begin{split}
-D_{AB}&amp;=a+b \\
-D_{AC}&amp;=a+c \\
-D_{BC}&amp;=b+c
-\end{split}\tag{2.1}
-\]</span></p>
-<p>respectively. Since lineages <span class="math inline">\(A\)</span> and <span class="math inline">\(B\)</span> have the same evolutionary time (<span class="math inline">\(t\)</span>), one may write <span class="math inline">\(a=\beta_At\)</span> and <span class="math inline">\(b=\beta_Bt\)</span>, where <span class="math inline">\(\beta_A\)</span> and <span class="math inline">\(\beta_B\)</span> are the rates of transcriptome evolution in lineages <span class="math inline">\(A\)</span> and <span class="math inline">\(B\)</span>, respectively.</p>
-<p>The relative rate test considers the following statistic
-<span class="math display">\[G_{AB}=D_{AC}-D_{BC}=a-b=\left(\beta_A-\beta_B\right)t\tag{2.2}\]</span></p>
-<p>Hence, the null hypothesis <span class="math inline">\(G_{AB}=0\)</span> or <span class="math inline">\(D_{AC}=D_{BC}\)</span> means an equal rate (<span class="math inline">\(\beta_A=\beta_B\)</span>) of expression divergence between two lineages. Rejection of this null indicates a rapid expression evolution in lineage <span class="math inline">\(A\)</span> (<span class="math inline">\(\beta_A&gt;\beta_B\)</span> if <span class="math inline">\(G_{AB}&gt;0\)</span>) or in lineage <span class="math inline">\(B\)</span> (<span class="math inline">\(\beta_A&gt;\beta_B\)</span> if <span class="math inline">\(G_{AB}&lt;0\)</span>).</p>
-<p>Here, we apply a Z-score test to examine the signigicance</p>
-<p><span class="math display">\[Z\  =\  \frac{\bigtriangleup_{AB}}{\sqrt{Var\left(\bigtriangleup_{AB}\right)}}\tag{2.3}\]</span></p>
-<p>where <span class="math inline">\(\bigtriangleup_{AB}\)</span> equals to <span class="math inline">\(G_{AB}\)</span>.</p>
+<div id="header">
+<h1 class="title">Tutorial: Use <em>TreeExp</em> for Phylogenetic Transcriptome Analysis</h1>
+<p class="author"><em>Jingwen Yang</em></p>
+<p class="date"><em>2019-05-29</em></p>
+</div>
+<div id="preface" class="section level1">
+<h1><span class="header-section-number">Chapter 1</span> Preface</h1>
+<p>The central topic of evolutionary transcriptomics is to investigate how gene regulation network (GRN) plays a key role in phenotypic innovations <span class="citation">(M. King and Wilson <a href="#ref-king1975">1975</a> <span class="citation">Harrison, Wright, and Mank (<a href="#ref-harrison2012">2012</a>)</span><span class="citation">Lehner (<a href="#ref-lehner2013">2013</a>)</span>)</span>. To this end, a unified, statistically sound framework for phylogenetic transcriptome analysis is desirable. In addition to some basic tools implemented in the previous version, <em>TreeExp 1.0</em><span class="citation">(Ruan, Su, and Gu <a href="#ref-doi:10.1002/jez.b.22707">2016</a>)</span>, for phylogenetic transcriptome analysis, the R-package <em>TreeExp2</em> is the updated version with a suite of advanced, recently developed methods.</p>
 
 </div>
-<div id="statistical-procedure-of-the-relative-rate-test" class="section level2">
-<h2><span class="header-section-number">5.2</span> Statistical Procedure of the Relative Rate Test</h2>
-<div id="sampling-variance-of-the-expression-distance" class="section level3">
-<h3><span class="header-section-number">5.2.1</span> Sampling variance of the expression distance</h3>
-<p>In practice, calculating the sampling variance for the estimated coefficient (<span class="math inline">\(r\)</span>) of correlation is usually carried out using the Fisher transformation, the inverse hyperbolic (artanh) of <span class="math inline">\(r\)</span>, that is, <span class="math inline">\(F\left(r\right)=0.5\ln\left(\frac{1+r}{1-r}\right)\)</span>. It follows that <span class="math inline">\(F(r)\)</span> approximately follows a normal distribution with <span class="math inline">\(F(\rho)\)</span> and the variance of <span class="math inline">\(\frac{1}{N-3}\)</span>, where <span class="math inline">\(\rho\)</span> is the true value of the coefficient of correlation and <span class="math inline">\(N\)</span> is the sample size. With the delta method, the inverse Fisher transformation brings the sampling variance back to the correlation scale, resulting in <span class="math inline">\(Var\left(r\right)=\frac{\left(1-r^2\right)^2}{N-3}\)</span>. Consider the general expression distance given by Eq.(1.11). By the delta method, the large-sampling variance of <span class="math inline">\(D_{12}\)</span> is approximately given by
-<span class="math display">\[Var\left(D_{12}\right)=\frac{Var\left(r_{12}\right)}{\left(r_{12}-\pi\right)^2}\tag{2.4}\]</span></p>
+<h3>References</h3>
+<div id="refs" class="references">
+<div id="ref-harrison2012">
+<p>Harrison, Peter W., Alison E. Wright, and Judith E. Mank. 2012. “The evolution of gene expression and the transcriptome–phenotype relationship.” <em>Seminars in Cell &amp; Developmental Biology</em> 23:222–29. <a href="https://doi.org/10.1016/j.semcdb.2011.12.004" class="uri">https://doi.org/10.1016/j.semcdb.2011.12.004</a>.</p>
 </div>
-<div id="calculation-of-varbigtriangleup_ab" class="section level3">
-<h3><span class="header-section-number">5.2.2</span> Calculation of <span class="math inline">\(Var(\bigtriangleup_{AB})\)</span></h3>
-<p>Since <span class="math inline">\(\bigtriangleup_{AB}=D_{AC}-D_{BC}\)</span>, we have <span class="math inline">\(Var(\bigtriangleup_{AB})=Var(D_{AC})+Var(D_{BC})-2Cov(D_{AC}, D_{BC})\)</span>. Moreover, we notice that the sampling covariance equals to <span class="math inline">\(Cov(D_{AC}, D_{BC})=Var(c)\)</span>, as branch-<span class="math inline">\(c\)</span> is the one shared by those two distances. We develop a simple method to calculate <span class="math inline">\(Var(c)\)</span>.</p>
-<ol style="list-style-type: decimal">
-<li>First, the branch length can be estimated by <span class="math inline">\(c=\frac{(D_{AC}+D_{BC}-D_{AB})}{2}\)</span>.</li>
-<li>we calculate a new variable <span class="math inline">\(r_c=\pi+(1-\pi)e^{-c}\)</span>. After viewing <span class="math inline">\(r_c\)</span> as the estimated coefficient of correlation between species <span class="math inline">\(C\)</span> and the ancestral node <span class="math inline">\(O\)</span>, by the Fisher transformation we obtain <span class="math inline">\(Var(c)=\frac{(1-r_c^2)^2}{(N-3)}\)</span>. While two sampling variances <span class="math inline">\(Var(D_{AC})\)</span> and <span class="math inline">\(Var(D_{BC})\)</span> can be obtained directly from Eq.(2.4), together we have</li>
-</ol>
-<p><span class="math display">\[Var\left(\bigtriangleup_{AB}\right)=\frac{Var\left(r_{AC}\right)}{\left(r_{AC}-\pi\right)^2}+\frac{Var\left(r_{BC}\right)}{\left(r_{BC}-\pi\right)^2}-\frac{2Var\left(r_c\right)}{\left(r_c-\pi\right)^2}\tag{2.5}\]</span>
-</p>
+<div id="ref-king1975">
+<p>King, MC, and AC Wilson. 1975. “Evolution at two levels in humans and chimpanzees.” <em>Science</em> 188:107–16. <a href="https://doi.org/10.1126/science.1090005" class="uri">https://doi.org/10.1126/science.1090005</a>.</p>
 </div>
+<div id="ref-lehner2013">
+<p>Lehner, Ben. 2013. “Genotype to phenotype: lessons from model organisms for human genetics.” <em>Nature Reviews Genetics</em> 14:168. <a href="https://doi.org/10.1038/nrg3404" class="uri">https://doi.org/10.1038/nrg3404</a>.</p>
 </div>
-<div id="case-study-testing-fast-evolving-genes-in-human" class="section level2">
-<h2><span class="header-section-number">5.3</span> Case Study: Testing Fast-evolving Genes in Human</h2>
-<p>In general, relative rate test is to investigate whether the expression of a given gene set in species A is fastly evolved than that in species B. Typically, the gene set chosen to perform the test is set by users and is only a small part of all one-to-one orthologous genes (several hundreds). Moreover, the gene set usually have some specific biological characteristics, such like gene set from a GO term or a co-expression module.</p>
-<p>In the case study, we choose gene set with row numbers between 200 to 800 to exemplify how relative rate test works.</p>
-<p>At first, we shall extract the gene expression values of brain tissue from the <em>tetraExp</em> object.</p>
-<p>Parameter <code>rowindex</code> defines which genes are selected to perfome the test. Usually, <code>rowindex</code> is a vector of numbers corresponded to indices of selecting rows or a vector of logical values (TRUE or FALSE) indicating whether to select the corresponding row or not.</p>
-<pre class="sourceCode r"><code class="sourceCode r">#### load the tetraExp data firstly
-<span class="kw">data</span>(tetraExp)
-### extract the gene expression values of the selected genes from &#39;tetraExp&#39; object.
-exp_table &lt;-<span class="kw">exptabTE</span>(tetraExp, <span class="dt">taxa =</span> <span class="st">&#39;all&#39;</span>, <span class="dt">subtaxa =</span> <span class="st">&#39;Brain&#39;</span>,<span class="dt">rowindex =</span> <span class="dv">200</span><span class="op">:</span><span class="dv">800</span>)</code></pre>
-<p>After obtaining the expression table, performing relative rate test is straightforward by function <code>RelaRate.test</code>. It will extract the gene expression value of species <span class="math inline">\(A\)</span> (human), species <span class="math inline">\(B\)</span> (chimpanzee) and outgroup <span class="math inline">\(C\)</span> (macaque) from the <em>exp_table</em> and will return a list of three elements. The first one is the <span class="math inline">\(Z\)</span>-score value of the relative rate test, the second is the value of parameter <code>alternative</code>, and the last one is the <span class="math inline">\(p\)</span>-value under the specified alternative hypothesis.</p>
-<pre class="sourceCode r"><code class="sourceCode r">ztest &lt;-<span class="st"> </span><span class="kw">RelaRate.test</span>(<span class="dt">expTable =</span> exp_table, <span class="dt">x =</span> <span class="st">&#39;human&#39;</span>, <span class="dt">y =</span> <span class="st">&#39;chimpanzee&#39;</span>,
-                       <span class="dt">outgroup =</span> <span class="st">&#39;macaque&#39;</span>, <span class="dt">alternative =</span> <span class="st">&#39;greater&#39;</span>)
-ztest</code></pre>
-<pre><code>## $Z_score
-## [1] 0.7349926
-## 
-## $alternative
-## [1] &quot;greater&quot;
-## 
-## $p.value
-## [1] 0.231172</code></pre>
-<p>So, using macaque as an outgroup, the expression of geneset with row numbers between 200 and 800 in human is not likely to evolved significantly faster than that in chimpanzee (<span class="math inline">\(p\)</span>-value &gt;0.05).</p>
-
+<div id="ref-doi:10.1002/jez.b.22707">
+<p>Ruan, Hang, Zhixi Su, and Xun Gu. 2016. “TreeExp1.0: R Package for Analyzing Expression Evolution Based on Rna-Seq Data.” <em>Journal of Experimental Zoology Part B: Molecular and Developmental Evolution</em> 326 (7):394–402. <a href="https://doi.org/10.1002/jez.b.22707" class="uri">https://doi.org/10.1002/jez.b.22707</a>.</p>
 </div>
 </div>
             </section>
@@ -287,8 +246,8 @@ ztest</code></pre>
           </div>
         </div>
       </div>
-<a href="pairwise-expression-distance-and-expression-tree-making.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
-<a href="estimating-the-strength-of-expression-conservation.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+
+<a href="introduction.html" class="navigation navigation-next navigation-unique" aria-label="Next page"><i class="fa fa-angle-right"></i></a>
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>
@@ -318,7 +277,7 @@ gitbook.start({
 "size": 2
 },
 "edit": {
-"link": "https://github.com/rstudio/bookdown-demo/edit/master/04-RelativeTest.Rmd",
+"link": "https://github.com/rstudio/bookdown-demo/edit/master/index.Rmd",
 "text": "Edit"
 },
 "history": {
