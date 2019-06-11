@@ -24,7 +24,7 @@
 <meta name="author" content="Jingwen Yang" />
 
 
-<meta name="date" content="2019-05-29" />
+<meta name="date" content="2019-06-11" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -238,7 +238,7 @@ V\left[x\  \mid\  x_0\right]\  &amp;=\frac{1-e^{-2\beta t}}{W}
 </div>
 <div id="stationary-ou-model-under-a-species-phylogeny" class="section level3">
 <h3><span class="header-section-number">6.1.2</span> Stationary OU model under a species phylogeny</h3>
-<p>We shall develop a statistical method to estimate the strength (<span class="math inline">\(W\)</span>) of expression conservation of a gene from high throughput RNA-seq data of multiple species. <strong>Figure 2</strong> illustrates the evolutionary scenario used in the evolutionary transcriptome analysis.</p>
+<p>We shall develop a statistical method to estimate the strength (<span class="math inline">\(W\)</span>) of expression conservation of a gene from high throughput RNA-seq data of multiple species. <strong>Figure 6.1</strong> illustrates the evolutionary scenario used in the evolutionary transcriptome analysis.</p>
 <ul>
 <li>The first component is the evolutionary lineage from the origin of the tissue (node <span class="math inline">\(Z\)</span>) to the root (node <span class="math inline">\(O\)</span>) of the species phylogeny, with <span class="math inline">\(\tau\)</span> evolutionary time units.</li>
 <li>The second component is the conventional species phylogeny with <span class="math inline">\(n\)</span> species. That is, given the initial expression value <span class="math inline">\(z_0\)</span> at node <span class="math inline">\(Z\)</span>, the OU process of <span class="math inline">\(x_0\)</span> in the lineage from <span class="math inline">\(Z\)</span> to <span class="math inline">\(O\)</span> is given by <span class="math inline">\(OU\left(x_0\mid z_0;\  \theta\right)\)</span>, where the parameter vector <span class="math inline">\(\theta=\left(\mu,\  \beta\tau,\  W\right)\)</span>. The joint density of expressions <span class="math inline">\(\boldsymbol{x}=\left(x_1,...x_n\right)\)</span> conditional of the expression level (<span class="math inline">\(x_0\)</span>) at root <span class="math inline">\(O\)</span>, denoted by <span class="math inline">\(P\left(\boldsymbol{x}\mid x_0\right)\)</span>, can be derived under the OU model. It follows that the joint expression density of <span class="math inline">\(\boldsymbol{x}=\left(x_1,...x_n\right)\)</span> conditional of <span class="math inline">\(z_0\)</span> is given by</li>
@@ -247,7 +247,7 @@ V\left[x\  \mid\  x_0\right]\  &amp;=\frac{1-e^{-2\beta t}}{W}
 <span class="citation">(Hansen and Martins <a href="#ref-hansen1996">1996</a>)</span> showed that either <span class="math inline">\(P\left(\boldsymbol{x}\mid x_0\right)\)</span> or <span class="math inline">\(P\left(\boldsymbol{x}\mid z_0\right)\)</span> is multivariate normally distributed. Consider <span class="math inline">\(P\left(\boldsymbol{x}\mid z_0\right)\sim N\left(\boldsymbol{x}; \boldsymbol{\mu}, \boldsymbol{V}\right)\)</span> at first, where <span class="math inline">\(\boldsymbol{\mu}\)</span> is the mean vector and <span class="math inline">\(\boldsymbol{V}\)</span> is the variance-covariance matrix. Because current transcriptome data contain little information about the evolution from node <span class="math inline">\(Z\)</span> to node <span class="math inline">\(O\)</span>, calculations of <span class="math inline">\(\boldsymbol{\mu}\)</span> and <span class="math inline">\(\boldsymbol{V}\)</span> are usually difficult because both depend on <span class="math inline">\(z_0\)</span> and <span class="math inline">\(\tau\)</span>.</p>
 <p>We propose a stationary OU model (sOU) that helpful to avoid these problems in practice, which postulates that, at the genome-wide level, the biological function of a tissue-specific transcriptome is conservative during the course of species evolution. Specifically, sOU involves two assumptions.</p>
 <ul>
-<li>Origin of the tissue (node <span class="math inline">\(Z\)</span> in <strong>Figure 2</strong>) was so ancient that the evolutionary time between nodes <span class="math inline">\(Z\)</span> and <span class="math inline">\(O\)</span> can be approximated by <span class="math inline">\(\tau \to \infty\)</span>. Consequently, the expression mean and variance at root <span class="math inline">\(O\)</span> approach to <span class="math inline">\(\mu\)</span> and <span class="math inline">\(\rho^{2} = 1/W\)</span>, respectively.</li>
+<li>Origin of the tissue (node <span class="math inline">\(Z\)</span> in <strong>Figure 6.1</strong>) was so ancient that the evolutionary time between nodes <span class="math inline">\(Z\)</span> and <span class="math inline">\(O\)</span> can be approximated by <span class="math inline">\(\tau \to \infty\)</span>. Consequently, the expression mean and variance at root <span class="math inline">\(O\)</span> approach to <span class="math inline">\(\mu\)</span> and <span class="math inline">\(\rho^{2} = 1/W\)</span>, respectively.</li>
 <li>The optimal expression level (<span class="math inline">\(\mu\)</span>) and the strength of expression conservation (<span class="math inline">\(W\)</span>) remain virtually constant along the species phylogeny, that is, the expression mean and variances at all internal and external nodes are equal to <span class="math inline">\(\mu\)</span> and <span class="math inline">\(1/W\)</span>, respectively.</li>
 </ul>
 <p>Under the stationary OU model, <span class="math inline">\(P\left(\boldsymbol{x}\mid z_0\right)\)</span> can be simplified as follows:</p>
@@ -258,9 +258,9 @@ V\left[x\  \mid\  x_0\right]\  &amp;=\frac{1-e^{-2\beta t}}{W}
 </ul>
 <p><span class="math display">\[P\left(\boldsymbol{x}\mid x_0\right)=P\left(\boldsymbol{x}\mid z_0\right)\sim P\left(\boldsymbol{x};\  \boldsymbol{\mu},\  \boldsymbol{R},\  W\right)=N\left(\boldsymbol{x};\  \boldsymbol{\mu},\  \boldsymbol{R}/W\right)\tag{3.3}\]</span></p>
 <div class="figure"><span id="fig:pressure"></span>
-<img src="Figure2.png" alt="Figure2. The evolutionary scenario for comparative transcriptome analysis" width="50%" />
+<img src="Figure2.png" alt="The evolutionary scenario for comparative transcriptome analysis" width="50%" />
 <p class="caption">
-Figure 6.1: Figure2. The evolutionary scenario for comparative transcriptome analysis
+Figure 6.1: The evolutionary scenario for comparative transcriptome analysis
 </p>
 </div>
 </div>

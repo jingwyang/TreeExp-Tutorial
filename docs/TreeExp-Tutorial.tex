@@ -125,7 +125,7 @@
   \postauthor{\par}
       \predate{\centering\large\emph}
   \postdate{\par}
-    \date{2019-05-29}
+    \date{2019-06-11}
 
 \usepackage{booktabs}
 \usepackage{amsthm}
@@ -446,10 +446,10 @@ respectively, where \(\theta\) is for the parameter vector: \(\mu\) is the optim
 \hypertarget{transcriptome-evolution-between-species}{%
 \subsection{Transcriptome evolution between species}\label{transcriptome-evolution-between-species}}
 
-Consider a simple two-stage scenario of transcriptome evolution that consists of two species that diverged \(t\) time units ago (\textbf{Figure 1A}).
+Consider a simple two-stage scenario of transcriptome evolution that consists of two species that diverged \(t\) time units ago (\textbf{Figure 4.1A}).
 
 \begin{figure}
-\includegraphics[width=0.9\linewidth]{Figure1} \caption{Figure1. The schematic of transcriptome evolution along a phylogeny}\label{fig:unnamed-chunk-14}
+\includegraphics[width=0.9\linewidth]{Figure1} \caption{The schematic of transcriptome evolution along a phylogeny}\label{fig:unnamed-chunk-14}
 \end{figure}
 
 The first stage is the evolutionary lineage from the tissue ancestor (denoted by node \(Z\)) to the common ancestor of two species (denoted by node \(O\)), with a span of \(\tau\) evolutionary time units. Given the initial expression value \(z_0\) at node \(Z\), the density of \(x_0\) (the ancestral expression level at node \(O\)) is given by \(OU\left(x\mid x_0,\  \theta_0\right)\) where the parameter vector \(\theta_{0}=\left(\mu,\  \beta\tau,\  W\right)\).
@@ -799,7 +799,7 @@ Phenomenon of evolutionary history dominates the evolutionary expression pattern
 \hypertarget{theory-1}{%
 \section{Theory}\label{theory-1}}
 
-Given a set (\(N\)) of orthologous genes of two species denoted by \(A\) and \(B\), respectively, the goal of relative rate test is to investigate whether the rate of transcriptome evolution, on average, differs significantly between two lineages of species \(A\) and \(B\). To this end, we need the third species (species \(C\)) as outgroup (\textbf{Figure 1B}).
+Given a set (\(N\)) of orthologous genes of two species denoted by \(A\) and \(B\), respectively, the goal of relative rate test is to investigate whether the rate of transcriptome evolution, on average, differs significantly between two lineages of species \(A\) and \(B\). To this end, we need the third species (species \(C\)) as outgroup (\textbf{Figure 4.1B}).
 
 Let \(D_{AB}\), \(D_{AC}\) and \(D_{BC}\) be the pairwise expression distances, respectively, which can be estimated by the methods we formulated above. Let \(a\), \(b\), \(c\) be the expression branch lengths of corresponding three lineages \(A\), \(B\) and \(C\), respectively. Assuming that these expression distances are additive, we have
 
@@ -928,7 +928,7 @@ respectively, where \(\beta\) is the rate of expression evolution and W is the s
 \hypertarget{stationary-ou-model-under-a-species-phylogeny}{%
 \subsection{Stationary OU model under a species phylogeny}\label{stationary-ou-model-under-a-species-phylogeny}}
 
-We shall develop a statistical method to estimate the strength (\(W\)) of expression conservation of a gene from high throughput RNA-seq data of multiple species. \textbf{Figure 2} illustrates the evolutionary scenario used in the evolutionary transcriptome analysis.
+We shall develop a statistical method to estimate the strength (\(W\)) of expression conservation of a gene from high throughput RNA-seq data of multiple species. \textbf{Figure 6.1} illustrates the evolutionary scenario used in the evolutionary transcriptome analysis.
 
 \begin{itemize}
 \tightlist
@@ -946,7 +946,7 @@ We propose a stationary OU model (sOU) that helpful to avoid these problems in p
 \begin{itemize}
 \tightlist
 \item
-  Origin of the tissue (node \(Z\) in \textbf{Figure 2}) was so ancient that the evolutionary time between nodes \(Z\) and \(O\) can be approximated by \(\tau \to \infty\). Consequently, the expression mean and variance at root \(O\) approach to \(\mu\) and \(\rho^{2} = 1/W\), respectively.
+  Origin of the tissue (node \(Z\) in \textbf{Figure 6.1}) was so ancient that the evolutionary time between nodes \(Z\) and \(O\) can be approximated by \(\tau \to \infty\). Consequently, the expression mean and variance at root \(O\) approach to \(\mu\) and \(\rho^{2} = 1/W\), respectively.
 \item
   The optimal expression level (\(\mu\)) and the strength of expression conservation (\(W\)) remain virtually constant along the species phylogeny, that is, the expression mean and variances at all internal and external nodes are equal to \(\mu\) and \(1/W\), respectively.
 \end{itemize}
@@ -966,7 +966,7 @@ Under the stationary OU model, \(P\left(\boldsymbol{x}\mid z_0\right)\) can be s
 \[P\left(\boldsymbol{x}\mid x_0\right)=P\left(\boldsymbol{x}\mid z_0\right)\sim P\left(\boldsymbol{x};\  \boldsymbol{\mu},\  \boldsymbol{R},\  W\right)=N\left(\boldsymbol{x};\  \boldsymbol{\mu},\  \boldsymbol{R}/W\right)\tag{3.3}\]
 
 \begin{figure}
-\includegraphics[width=0.5\linewidth]{Figure2} \caption{Figure2. The evolutionary scenario for comparative transcriptome analysis}\label{fig:pressure}
+\includegraphics[width=0.5\linewidth]{Figure2} \caption{The evolutionary scenario for comparative transcriptome analysis}\label{fig:pressure}
 \end{figure}
 
 \hypertarget{variation-of-w-among-genes}{%
@@ -1205,7 +1205,7 @@ and draw the dentisty plot of \(W\) among genes.
 \hypertarget{theory-3}{%
 \section{Theory}\label{theory-3}}
 
-The empirical Bayesian method for ancestral expression inference along a phylogeny is illustrated in \textbf{Figure 3A}. While the theoretical foundation has been well formulated by the work of \citep{gu2004} based on the Brownian motion (BM) model, some updates and refinements are necessary before the Ornstein-Uhlenbeck (OU) model that is biologically more realistic,e.g.,\citep{bedford2009}.
+The empirical Bayesian method for ancestral expression inference along a phylogeny is illustrated in \textbf{Figure 7.1A}. While the theoretical foundation has been well formulated by the work of \citep{gu2004} based on the Brownian motion (BM) model, some updates and refinements are necessary before the Ornstein-Uhlenbeck (OU) model that is biologically more realistic,e.g.,\citep{bedford2009}.
 
 \hypertarget{from-brownian-motion-bm-model-to-ornstein-uhlenbeck-ou-model}{%
 \subsection{From Brownian Motion (BM) model to Ornstein-Uhlenbeck (OU) model}\label{from-brownian-motion-bm-model-to-ornstein-uhlenbeck-ou-model}}
@@ -1236,13 +1236,13 @@ Given the expression level (\(x_0\)) at the root O of a known phylogeny with n s
 where the mean vector (\(\boldsymbol{\mu}\)) and the variance-covariance matrix (\(\boldsymbol{V}\)) depends on the phylogenetic structure, branch lengths, rates of expression evolution and the initial expression level (\(x_0\)) at root \(O\).
 
 \begin{figure}
-\includegraphics[width=0.9\linewidth]{Figure3} \caption{Figure3. The schematic of ancestral expression inference along a phylogeny}\label{fig:unnamed-chunk-34}
+\includegraphics[width=0.9\linewidth]{Figure3} \caption{The schematic of ancestral expression inference along a phylogeny}\label{fig:unnamed-chunk-34}
 \end{figure}
 
 \hypertarget{ancestral-gene-expression-inference-an-empirical-bayesian-approach}{%
 \subsection{Ancestral gene expression inference: an empirical Bayesian approach}\label{ancestral-gene-expression-inference-an-empirical-bayesian-approach}}
 
-Our approach provides an empirical Bayesian procedure to infer the expression states of ancestral nodes along a given phylogeny. Let \(\boldsymbol{x}=(x_1,\cdots,x_n)\) be the observed expression profile and \(y\) be that at any ancestral node of interest (\textbf{Figure 3A}). According to the Bayes rule, the posterior density \(P\left(y\mid x_1...,x_n\right)\) is computed as follows
+Our approach provides an empirical Bayesian procedure to infer the expression states of ancestral nodes along a given phylogeny. Let \(\boldsymbol{x}=(x_1,\cdots,x_n)\) be the observed expression profile and \(y\) be that at any ancestral node of interest (\textbf{Figure 7.1A}). According to the Bayes rule, the posterior density \(P\left(y\mid x_1...,x_n\right)\) is computed as follows
 
 \[P\left(y\mid x_1,\cdots,\  x_n\right)=\frac{P\left(x_1,\  \cdots,\  x_n,\  y\right)}{P\left(x_1,\  \cdots,\  x_n\right)}\tag{4.5}\]
 This claims that \(P\left(x_1,\  \cdots,\  x_n\right)\) is an \(n\)-variate normal density, denoted by \(N\left(x_1,\  \cdots,\  x_n, \boldsymbol{\mu},\boldsymbol{V}\right)\). Let \(M=n+1\) and regard the ancestral level \(y\) as an additional variable \(x{n+1}\). Under the BM model, Gu\citep{gu2004} showed that \(P\left(x_1,\  \cdots,\  x_n,\  y\right)\) is an (\(n+1\))-variate normal density, denoted by \(N\left(x_1,\  \cdots,\  x_n, \boldsymbol{\mu},\boldsymbol{V_{M}}\right)\). The extended variance-covariance matrix \(V_{M}\) has the following structure:
@@ -1265,7 +1265,7 @@ where \(\sigma_{y\mid x}^2=\frac{1}{c_{n+1,n+1}}\) is the (posterior) variance o
 \hypertarget{the-problem-of-ancestral-transcriptome-inference}{%
 \subsection{The problem of ancestral transcriptome inference}\label{the-problem-of-ancestral-transcriptome-inference}}
 
-Under the stabilizing selection model that the transcriptome evolution follows an Ornstein-Uhlenbeck (OU) stochastic process, the problem is to infer the expression level (\(y\)) of an ancestral of interest along a given phylogeny (\textbf{Figure 3A}). Through the empirical Bayesian procedure, we have shown that the posterior density \(P\left(y\mid x_1,\  \cdots,\  x_n\right)\)is given by Eq.(4.7), and the the posterior mean of \(y\) conditional of \(x_1,\  \cdots,\  x_n\) can be given by
+Under the stabilizing selection model that the transcriptome evolution follows an Ornstein-Uhlenbeck (OU) stochastic process, the problem is to infer the expression level (\(y\)) of an ancestral of interest along a given phylogeny (\textbf{Figure 7.1A}). Through the empirical Bayesian procedure, we have shown that the posterior density \(P\left(y\mid x_1,\  \cdots,\  x_n\right)\)is given by Eq.(4.7), and the the posterior mean of \(y\) conditional of \(x_1,\  \cdots,\  x_n\) can be given by
 \[y\mid x\  =E\left[y\mid x_1,\  \cdots,\  x_n\right]\  =b_0+\sum_{i=1}^nb_ix_i\tag{4.8}\]
 where \(b_i=-\frac{c_{i,n+1}}{c_{n+1,\  n+1}}\)and \(b_0=\mu\left(1+b_1+\cdots+b_n\right)\). Hence, it can be used as an empirical Bayesian predictor for the ancestral state of gene expression. In short, the ancestral expression inference is a simple linear combination of the current expressions; their (linear) coefficients are determined by the phylogeny and the model parameters.
 
@@ -1274,7 +1274,7 @@ From the view of practice, it appears that the problem of ancestral expression i
 \hypertarget{stationary-ornstein-uhlenbeck-sou-model}{%
 \subsection{Stationary Ornstein-Uhlenbeck (sOU) model}\label{stationary-ornstein-uhlenbeck-sou-model}}
 
-Let \(z_0\) be the expression level at the birth time (node \(Z\)) of a particular tissue (\textbf{Figure 3C}). Since then, the evolutionary change of \(x_0\) along the lineage follows an OU model given by \(OU\left(x_0\mid z_0; \tau,\beta_0, W\right)\). The stationary OU model (sOU) invokes two assumptions.
+Let \(z_0\) be the expression level at the birth time (node \(Z\)) of a particular tissue (\textbf{Figure 7.1C}). Since then, the evolutionary change of \(x_0\) along the lineage follows an OU model given by \(OU\left(x_0\mid z_0; \tau,\beta_0, W\right)\). The stationary OU model (sOU) invokes two assumptions.
 
 \begin{enumerate}
 \def\labelenumi{\arabic{enumi}.}
@@ -1301,7 +1301,7 @@ The algorithm to calculate the coefficients \(b_0,\  b_1,\  \cdots,\  b_n\) unde
 \item
   Let \(\boldsymbol{R}\) be the matrix of coefficients of correlation. It is straightforward to calculate the variance-covariance matrix of \(P\left(x_1,\cdots,x_n\right)\) by \(\boldsymbol{V}=V_0\boldsymbol{R}\).\\
 \item
-  The difficulty in calculating the variance-covariance matrix of \(P\left(x_1,\cdots,x_n,y\right)\), \(\boldsymbol{V_M}\), is how to calculate the covariance elements between the \(i\)-th external node and the (\(n+1\))-th (internal) node, \(i=1,\cdots,n\) (\textbf{Figure 3C}). Under the stationary OU model, we show \(V_{i,n+1}=V_{0}e^{-di}\), where \(d_i\) is the expression branch length from the internal node (\(y\)) to the \(i\)-th external node.
+  The difficulty in calculating the variance-covariance matrix of \(P\left(x_1,\cdots,x_n,y\right)\), \(\boldsymbol{V_M}\), is how to calculate the covariance elements between the \(i\)-th external node and the (\(n+1\))-th (internal) node, \(i=1,\cdots,n\) (\textbf{Figure 7.1C}). Under the stationary OU model, we show \(V_{i,n+1}=V_{0}e^{-di}\), where \(d_i\) is the expression branch length from the internal node (\(y\)) to the \(i\)-th external node.
 \end{itemize}
 
 We develop a simple method, to estimate \(d_i\) by mapping the expression distance matrix onto the known phylogeny. As \(R_{n+1,i}= R_{i,n+1}\) and \(R_{n+1,n+1}=1\), we then obtain \(\boldsymbol{V_M}\) and its inverse matrix \(\boldsymbol{C}\).
@@ -1322,6 +1322,7 @@ We first generate brain expression distance matrix of these six primate species:
 
 \begin{Shaded}
 \begin{Highlighting}[]
+\KeywordTok{library}\NormalTok{(}\StringTok{'TreeExp'}\NormalTok{)}
 \KeywordTok{data}\NormalTok{(}\StringTok{'tetraExp'}\NormalTok{)}
 \NormalTok{primate_group <-}\KeywordTok{c}\NormalTok{(}\StringTok{'human'}\NormalTok{,}\StringTok{'chimpanzee'}\NormalTok{,}\StringTok{'gibbon'}\NormalTok{,}\StringTok{'bonobo'}\NormalTok{,}\StringTok{'gorilla'}\NormalTok{,}\StringTok{'macaque'}\NormalTok{)}
 
@@ -1386,6 +1387,7 @@ To compare the built expression tree to the species tree, we can root the tree w
 
 \begin{Shaded}
 \begin{Highlighting}[]
+\KeywordTok{library}\NormalTok{(}\StringTok{'ape'}\NormalTok{)}
 \NormalTok{primate_tree_root <-}\StringTok{ }\KeywordTok{root}\NormalTok{(primate_tree, }\DataTypeTok{outgroup =} \StringTok{"Macaque_Brain"}\NormalTok{, }\DataTypeTok{resolve.root =} \OtherTok{TRUE}\NormalTok{)}
 \NormalTok{bs<-}\KeywordTok{boot.exphy}\NormalTok{(}\DataTypeTok{phy=}\NormalTok{primate_tree_root, }\DataTypeTok{x =}\NormalTok{ primate_expT, }\DataTypeTok{method =} \StringTok{'sou'}\NormalTok{, }\DataTypeTok{outgroup =} \StringTok{'Macaque_Brain'}\NormalTok{,}\DataTypeTok{B =} \DecValTok{100}\NormalTok{) }
 \NormalTok{primate_tree_root}\OperatorTok{$}\NormalTok{node.label =}\StringTok{ }\NormalTok{bs }

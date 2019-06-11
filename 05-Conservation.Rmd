@@ -24,7 +24,7 @@ respectively, where $\beta$ is the rate of expression evolution and W is the str
 
 
 ###  Stationary OU model under a species phylogeny
-We shall develop a statistical method to estimate the strength ($W$) of expression conservation of a gene from high throughput RNA-seq data of multiple species. **Figure 2** illustrates the evolutionary scenario used in the evolutionary transcriptome analysis. 
+We shall develop a statistical method to estimate the strength ($W$) of expression conservation of a gene from high throughput RNA-seq data of multiple species. **Figure 6.1** illustrates the evolutionary scenario used in the evolutionary transcriptome analysis. 
 
 * The first component is the evolutionary lineage from the origin of the tissue (node $Z$) to the root (node $O$) of the species phylogeny, with $\tau$ evolutionary time units. 
 * The second component is the conventional species phylogeny with $n$ species. That is, given the initial expression value $z_0$ at node $Z$, the OU process of $x_0$ in the lineage from $Z$ to $O$ is given by $OU\left(x_0\mid z_0;\ \theta\right)$, where the parameter vector $\theta=\left(\mu,\ \beta\tau,\ W\right)$.  The joint density of expressions $\boldsymbol{x}=\left(x_1,...x_n\right)$ conditional of the expression level ($x_0$) at root $O$, denoted by $P\left(\boldsymbol{x}\mid x_0\right)$, can be derived under the OU model. It follows that the joint expression density of $\boldsymbol{x}=\left(x_1,...x_n\right)$ conditional of $z_0$ is given by
@@ -34,7 +34,7 @@ $$P\left(\boldsymbol{x}\mid z_0\right)=\int_{\ -\infty}^{\infty}OU\left(x_0\mid 
 
 We propose a stationary OU model (sOU) that helpful to avoid these problems in practice, which postulates that, at the genome-wide level, the biological function of a tissue-specific transcriptome is conservative during the course of species evolution. Specifically, sOU involves two assumptions. 
 
-* Origin of the tissue (node $Z$ in **Figure 2**) was so ancient that the evolutionary time between nodes $Z$ and $O$ can be approximated by $\tau \to \infty$. Consequently, the expression mean and variance at root $O$ approach to $\mu$ and $\rho^{2} = 1/W$, respectively.
+* Origin of the tissue (node $Z$ in **Figure 6.1**) was so ancient that the evolutionary time between nodes $Z$ and $O$ can be approximated by $\tau \to \infty$. Consequently, the expression mean and variance at root $O$ approach to $\mu$ and $\rho^{2} = 1/W$, respectively.
 * The optimal expression level ($\mu$) and the strength of expression conservation ($W$) remain virtually constant along the species phylogeny, that is, the expression mean and variances at all internal and external nodes are equal to $\mu$ and $1/W$, respectively. 
 
 Under the stationary OU model, $P\left(\boldsymbol{x}\mid z_0\right)$ can be simplified as follows: 
@@ -48,7 +48,7 @@ $$P\left(\boldsymbol{x}\mid x_0\right)=P\left(\boldsymbol{x}\mid z_0\right)\sim 
 
 
 
-```{r pressure, echo=FALSE, fig.cap="Figure2. The evolutionary scenario for comparative transcriptome analysis", out.width = '50%'}
+```{r pressure, echo=FALSE, fig.cap="The evolutionary scenario for comparative transcriptome analysis", out.width = '50%'}
 knitr::include_graphics("Figure2.png")
 ```
 

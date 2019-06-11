@@ -1,6 +1,6 @@
 # Ancestral Transcriptome Inference
 ## Theory
-The empirical Bayesian method for ancestral expression inference along a phylogeny is illustrated in **Figure 3A**.  While the theoretical foundation has been well formulated by the work of [@gu2004] based on the Brownian motion (BM) model, some updates and refinements are necessary before the Ornstein-Uhlenbeck (OU) model that is biologically more realistic,e.g.,[@bedford2009].
+The empirical Bayesian method for ancestral expression inference along a phylogeny is illustrated in **Figure 7.1A**.  While the theoretical foundation has been well formulated by the work of [@gu2004] based on the Brownian motion (BM) model, some updates and refinements are necessary before the Ornstein-Uhlenbeck (OU) model that is biologically more realistic,e.g.,[@bedford2009].
 
 ### From Brownian Motion (BM) model to Ornstein-Uhlenbeck (OU) model
 Let $X$ be the expression level of a gene. Brownian motion is the simplest model to describe changes in gene expression between orthologous genes, in which the degree of stochastic change away from the current state is independent of both state and time. It is well-known that the probability density function of a Brownian motion is given by 
@@ -28,13 +28,13 @@ Given the expression level ($x_0$) at the root O of a known phylogeny with n spe
 $$P\left(\boldsymbol{x}\right)=\frac{1}{\left(\sqrt{2\pi}\right)^n\left|\boldsymbol{V}\right|^{\frac{1}{2}}}\exp\left\{-\frac{\left(\boldsymbol{x}-\boldsymbol{\mu}\right)'\boldsymbol{V}^{\left\{-1\right\}}\left(\boldsymbol{x}-\boldsymbol{\mu}\right)}{2}\right\}\tag{4.4}$$
 where the mean vector ($\boldsymbol{\mu}$) and the variance-covariance matrix ($\boldsymbol{V}$) depends on the phylogenetic structure, branch lengths, rates of expression evolution and the initial expression level ($x_0$) at root $O$.  
 
-```{r, echo=FALSE, fig.cap="Figure3. The schematic of ancestral expression inference along a phylogeny", out.width = '90%'}
+```{r, echo=FALSE, fig.cap="The schematic of ancestral expression inference along a phylogeny", out.width = '90%'}
 knitr::include_graphics("Figure3.png")
 ```
 
 
 ### Ancestral gene expression inference: an empirical Bayesian approach
-Our approach provides an empirical Bayesian procedure to infer the expression states of ancestral nodes along a given phylogeny. Let $\boldsymbol{x}=(x_1,\cdots,x_n)$ be the observed expression profile and $y$ be that at any ancestral node of interest (**Figure 3A**). According to the Bayes rule, the posterior density $P\left(y\mid x_1...,x_n\right)$ is computed as follows 
+Our approach provides an empirical Bayesian procedure to infer the expression states of ancestral nodes along a given phylogeny. Let $\boldsymbol{x}=(x_1,\cdots,x_n)$ be the observed expression profile and $y$ be that at any ancestral node of interest (**Figure 7.1A**). According to the Bayes rule, the posterior density $P\left(y\mid x_1...,x_n\right)$ is computed as follows 
 
 $$P\left(y\mid x_1,\cdots,\ x_n\right)=\frac{P\left(x_1,\ \cdots,\ x_n,\ y\right)}{P\left(x_1,\ \cdots,\ x_n\right)}\tag{4.5}$$
 This claims that $P\left(x_1,\ \cdots,\ x_n\right)$ is an $n$-variate normal density, denoted by $N\left(x_1,\ \cdots,\ x_n, \boldsymbol{\mu},\boldsymbol{V}\right)$.  Let $M=n+1$ and regard the ancestral level $y$ as an additional variable $x{n+1}$. Under the BM model, Gu[@gu2004] showed that $P\left(x_1,\ \cdots,\ x_n,\ y\right)$ is an ($n+1$)-variate normal density, denoted by $N\left(x_1,\ \cdots,\ x_n, \boldsymbol{\mu},\boldsymbol{V_{M}}\right)$. The extended variance-covariance matrix $V_{M}$ has the following structure:
@@ -55,14 +55,14 @@ $$P\left(y\mid x_1,\cdots,\ x_n\right)=\frac{1}{\sqrt{2\pi\sigma_{y\mid x}}}\exp
 where $\sigma_{y\mid x}^2=\frac{1}{c_{n+1,n+1}}$ is the (posterior) variance of $y$. 
 
 ### The problem of ancestral transcriptome inference
-Under the stabilizing selection model that the transcriptome evolution follows an Ornstein-Uhlenbeck (OU) stochastic process, the problem is to infer the expression level ($y$) of an ancestral of interest along a given phylogeny (**Figure 3A**).  Through the empirical Bayesian procedure, we have shown that the posterior density $P\left(y\mid x_1,\ \cdots,\ x_n\right)$is given by Eq.(4.7), and the the posterior mean of $y$ conditional of $x_1,\ \cdots,\ x_n$ can be given by
+Under the stabilizing selection model that the transcriptome evolution follows an Ornstein-Uhlenbeck (OU) stochastic process, the problem is to infer the expression level ($y$) of an ancestral of interest along a given phylogeny (**Figure 7.1A**).  Through the empirical Bayesian procedure, we have shown that the posterior density $P\left(y\mid x_1,\ \cdots,\ x_n\right)$is given by Eq.(4.7), and the the posterior mean of $y$ conditional of $x_1,\ \cdots,\ x_n$ can be given by
 $$y\mid x\ =E\left[y\mid x_1,\ \cdots,\ x_n\right]\ =b_0+\sum_{i=1}^nb_ix_i\tag{4.8}$$
 where $b_i=-\frac{c_{i,n+1}}{c_{n+1,\ n+1}}$and $b_0=\mu\left(1+b_1+\cdots+b_n\right)$. Hence, it can be used as an empirical Bayesian predictor for the ancestral state of gene expression. In short, the ancestral expression inference is a simple linear combination of the current expressions; their (linear) coefficients are determined by the phylogeny and the model parameters. 
 
 From the view of practice, it appears that the problem of ancestral expression inference is virtually to determine those linear coefficients that are associated with each ancestral node of interest ($b_1,\ \cdots,\ b_n$). However, when the general OU model is applied, some computational difficulties may arise, mainly due to the model complexity that causes the problem of over-parametrization. To this end, we introduce the stationary OU model (sOU), under which we develop a feasible procedure to calculate the coefficients $b_i$, $i=0,\cdots,n$. 
 
 ### Stationary Ornstein-Uhlenbeck (sOU) model
-Let $z_0$ be the expression level at the birth time (node $Z$) of a particular tissue (**Figure 3C**). Since then, the evolutionary change of $x_0$ along the lineage follows an OU model given by $OU\left(x_0\mid z_0; \tau,\beta_0, W\right)$. The stationary OU model (sOU) invokes two assumptions.
+Let $z_0$ be the expression level at the birth time (node $Z$) of a particular tissue (**Figure 7.1C**). Since then, the evolutionary change of $x_0$ along the lineage follows an OU model given by $OU\left(x_0\mid z_0; \tau,\beta_0, W\right)$. The stationary OU model (sOU) invokes two assumptions.
 
 1. The timing of tissue origin was much more ancient than the root of species phylogeny under study such that node O can be approximated by the stationary condition of $OU\left(x_0\mid z_0; \tau,\beta_0, W\right)$ as $\tau \rightarrow \infty$.  In other words, the mean and the variance of $x_0$ at the root of phylogeny is simply given by $\mu$ and $\rho^2 = 1/W$, respectively.
 2. Since then, the optimal level ($\mu$) and the strength of stabilizing selection ($W$) remain constant during the course of evolution along the species phylogeny. Consequently, the expression variances in all internal and external nodes are the same, which equal to $1/W$. Under the stationary OU model, it can be shown that the variance-covariance matrix $\boldsymbol{V}$ is root-independent[@hansen1996].
@@ -76,7 +76,7 @@ The algorithm to calculate the coefficients $b_0,\ b_1,\ \cdots,\ b_n$ under the
 * As the expression variance is expected to be the same among all species, the expression variance ($V_0$) is the simple average of expression variances among species. 
 * The coefficient of correlation between the $i$-th and $j$-th external nodes, denoted by $R_{ij}$, is calculated by the standard approach. 
 * Let $\boldsymbol{R}$ be the matrix of coefficients of correlation. It is straightforward to calculate the variance-covariance matrix of $P\left(x_1,\cdots,x_n\right)$ by $\boldsymbol{V}=V_0\boldsymbol{R}$.  
-* The difficulty in calculating the variance-covariance matrix of $P\left(x_1,\cdots,x_n,y\right)$, $\boldsymbol{V_M}$, is how to calculate the covariance elements between the $i$-th external node and the ($n+1$)-th (internal) node, $i=1,\cdots,n$ (**Figure 3C**). Under the stationary OU model, we show $V_{i,n+1}=V_{0}e^{-di}$, where $d_i$ is the expression branch length from the internal node ($y$) to the $i$-th external node. 
+* The difficulty in calculating the variance-covariance matrix of $P\left(x_1,\cdots,x_n,y\right)$, $\boldsymbol{V_M}$, is how to calculate the covariance elements between the $i$-th external node and the ($n+1$)-th (internal) node, $i=1,\cdots,n$ (**Figure 7.1C**). Under the stationary OU model, we show $V_{i,n+1}=V_{0}e^{-di}$, where $d_i$ is the expression branch length from the internal node ($y$) to the $i$-th external node. 
 
 We develop a simple method, to estimate $d_i$ by mapping the expression distance matrix onto the known phylogeny. As $R_{n+1,i}= R_{i,n+1}$ and $R_{n+1,n+1}=1$, we then obtain $\boldsymbol{V_M}$ and its inverse matrix $\boldsymbol{C}$.
 
@@ -91,6 +91,7 @@ Note that the presumption of ancestral state inference is that the transcriptome
 We first generate brain expression distance matrix of these six primate species:
 
 ```{r, warning=FALSE, message=FALSE}
+library('TreeExp')
 data('tetraExp')
 primate_group <-c('human','chimpanzee','gibbon','bonobo','gorilla','macaque')
 
@@ -118,6 +119,7 @@ primate_tree <- NJ(dismat)
 To compare the built expression tree to the species tree, we can root the tree with respect to the specified outgroup ('Macaque_Brain' here) and plot the tree.
 
 ```{r,warning=FALSE, message=FALSE,results='hide', fig.height=4, fig.width=6}
+library('ape')
 primate_tree_root <- root(primate_tree, outgroup = "Macaque_Brain", resolve.root = TRUE)
 bs<-boot.exphy(phy=primate_tree_root, x = primate_expT, method = 'sou', outgroup = 'Macaque_Brain',B = 100) 
 primate_tree_root$node.label = bs 

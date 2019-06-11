@@ -5,7 +5,7 @@ output:
 ---
 # Relative Rate Test for Transcriptome Evolution
 ## Theory
-Given a set ($N$) of orthologous genes of two species denoted by $A$ and $B$, respectively, the goal of relative rate test is to investigate whether the rate of transcriptome evolution, on average, differs significantly between two lineages of species $A$ and $B$. To this end, we need the third species (species $C$) as outgroup (**Figure 1B**). 
+Given a set ($N$) of orthologous genes of two species denoted by $A$ and $B$, respectively, the goal of relative rate test is to investigate whether the rate of transcriptome evolution, on average, differs significantly between two lineages of species $A$ and $B$. To this end, we need the third species (species $C$) as outgroup (**Figure 4.1B**). 
 
 Let $D_{AB}$, $D_{AC}$ and $D_{BC}$ be the pairwise expression distances, respectively, which can be estimated by the methods we formulated above. Let $a$, $b$, $c$ be the expression branch lengths of corresponding three lineages $A$, $B$ and $C$, respectively. Assuming that these expression distances are additive, we have 
 

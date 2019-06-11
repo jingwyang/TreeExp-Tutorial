@@ -14,9 +14,9 @@ respectively, where  $\theta$ is for the parameter vector: $\mu$ is the optimal 
 
 
 ### Transcriptome evolution between species 
-Consider a simple two-stage scenario of transcriptome evolution that consists of two species that diverged $t$ time units ago (**Figure 1A**). 
+Consider a simple two-stage scenario of transcriptome evolution that consists of two species that diverged $t$ time units ago (**Figure 4.1A**). 
 
-```{r, echo=FALSE, fig.cap="Figure1. The schematic of transcriptome evolution along a phylogeny", out.width = '90%'}
+```{r, echo=FALSE, fig.cap="The schematic of transcriptome evolution along a phylogeny", out.width = '90%'}
 knitr::include_graphics("Figure1.png")
 ```
 
