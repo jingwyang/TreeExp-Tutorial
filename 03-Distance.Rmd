@@ -5,7 +5,7 @@ It is generally believed that the expression level of a gene, denoted by $x$, is
 
 $$
 \begin{split}
-E\left[x\ \mid\ x_0\right]\ &=\ \mu\left(1-e^{-\beta t}\right)\ +\ z_0e^{-\beta t} \\
+E\left[x\ \mid\ x_0\right]\ &=\ \mu\left(1-e^{-\beta t}\right)\ +\ x_0e^{-\beta t} \\
 V\left[x\ \mid\ x_0\right]\ &=\frac{1-e^{-2\beta t}}{W}
 \end{split}\tag{1.1}
 $$
